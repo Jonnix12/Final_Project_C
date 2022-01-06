@@ -1,0 +1,16 @@
+D:\C# Project\Projects\Final_Project_C\Final_Project_C\bin\Debug\net5.0\Final_Project_C.exe
+D:\C# Project\Projects\Final_Project_C\Final_Project_C\bin\Debug\net5.0\Final_Project_C.deps.json
+D:\C# Project\Projects\Final_Project_C\Final_Project_C\bin\Debug\net5.0\Final_Project_C.runtimeconfig.json
+D:\C# Project\Projects\Final_Project_C\Final_Project_C\bin\Debug\net5.0\Final_Project_C.runtimeconfig.dev.json
+D:\C# Project\Projects\Final_Project_C\Final_Project_C\bin\Debug\net5.0\Final_Project_C.dll
+D:\C# Project\Projects\Final_Project_C\Final_Project_C\bin\Debug\net5.0\ref\Final_Project_C.dll
+D:\C# Project\Projects\Final_Project_C\Final_Project_C\bin\Debug\net5.0\Final_Project_C.pdb
+D:\C# Project\Projects\Final_Project_C\Final_Project_C\obj\Debug\net5.0\Final_Project_C.csproj.AssemblyReference.cache
+D:\C# Project\Projects\Final_Project_C\Final_Project_C\obj\Debug\net5.0\Final_Project_C.GeneratedMSBuildEditorConfig.editorconfig
+D:\C# Project\Projects\Final_Project_C\Final_Project_C\obj\Debug\net5.0\Final_Project_C.AssemblyInfoInputs.cache
+D:\C# Project\Projects\Final_Project_C\Final_Project_C\obj\Debug\net5.0\Final_Project_C.AssemblyInfo.cs
+D:\C# Project\Projects\Final_Project_C\Final_Project_C\obj\Debug\net5.0\Final_Project_C.csproj.CoreCompileInputs.cache
+D:\C# Project\Projects\Final_Project_C\Final_Project_C\obj\Debug\net5.0\Final_Project_C.dll
+D:\C# Project\Projects\Final_Project_C\Final_Project_C\obj\Debug\net5.0\ref\Final_Project_C.dll
+D:\C# Project\Projects\Final_Project_C\Final_Project_C\obj\Debug\net5.0\Final_Project_C.pdb
+D:\C# Project\Projects\Final_Project_C\Final_Project_C\obj\Debug\net5.0\Final_Project_C.genruntimeconfig.cache
