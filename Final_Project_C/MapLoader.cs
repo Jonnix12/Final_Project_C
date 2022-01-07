@@ -38,6 +38,8 @@ namespace Final_Project_C
             }
             RoomSetUp();
             PlayerPosisonUpDate(Vector2.Y, Vector2.X);
+            EnemySpawner.EnemySpawn(5);
+            
             mapGrideUpDate = mapGride;
         }
 
@@ -101,6 +103,7 @@ namespace Final_Project_C
 
             Player.playerCurrentY = y;
             Player.playerCurrentX = x;
+            Player.EnemyCoill();
 
         }
     }

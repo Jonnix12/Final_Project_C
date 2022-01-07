@@ -6,14 +6,7 @@ namespace Final_Project_C
     {
         static void Main(string[] args)
         {
-            MapLoader.MapStartUp();
-
-            while (true)
-            {
-                Player.Move(Console.ReadLine());
-                MapLoader.MapUpDate();
-
-            }
+            SceneManager sceneManager = new SceneManager();
 
         }
     }

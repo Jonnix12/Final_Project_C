@@ -8,21 +8,41 @@ namespace Final_Project_C
 {
     class Enemy
     {
-        int hp;
+        public int hp;
         int attackDamage;
-        public Enemy()
+        public int posX;
+        public int posY;
+       
+
+        public Enemy(int X , int Y)
         {
+            MapLoader.mapGride[X, Y] = "*";
             hp = 30;
             attackDamage = 5;
+            posX = X;
+            posY = Y;
         }
 
         public void Attack()
         {
-
+            Console.WriteLine("Enemy as attack");
         }
 
         void TakeDamage()
         {
+
+        }
+
+        public bool IsDead()
+        {
+            if (hp <= 0)
+            {
+                return true;
+            }
+            EnemyManager.enemies.Remove(this);
+            MapLoader.mapGride[Player.enemyPosX, Player.enemyPosY] = MapLoader.empty;
+            return false;
+
 
         }
     }

@@ -12,6 +12,9 @@ namespace Final_Project_C
         static int movePoint = 5;
         public static int playerCurrentY = Vector2.Y;
         public static int playerCurrentX = Vector2.X;
+
+        public static int enemyPosX;
+        public static int enemyPosY;
         static void PlayerStartUp()
         {
 
@@ -99,9 +102,9 @@ namespace Final_Project_C
                 Console.WriteLine("OutOfIndex");
         }
 
-        static void Attack()
+        public static void Attack(Enemy enemy)
         {
-
+            enemy.hp -= 10;
         }
 
         static void HitChance()
@@ -114,6 +117,32 @@ namespace Final_Project_C
 
         }
 
+        public static bool EnemyCoill()
+        {
+            for (int X = -1; X <= 1; X++)
+            {
+                for (int Y = -1; Y <= 1; Y++)
+                {
+                    if (MapLoader.mapGride[playerCurrentX + X, playerCurrentY + Y] == EnemySpawner.enemy)
+                    {
+                        enemyPosX = playerCurrentX + X;
+                        enemyPosY = playerCurrentY + Y;
+                        Console.WriteLine("Combat");
+                        return true;
+                    }
 
+                }
+            }
+            return false;
+        }
+
+        public static bool IsDead()
+        {
+            if (hp <= 0)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
