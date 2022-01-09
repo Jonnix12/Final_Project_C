@@ -8,19 +8,19 @@
     "net5.0": []
   },
   "packageFolders": {
-    "C:\\Users\\jonha\\.nuget\\packages\\": {}
+    "C:\\Users\\jonharel\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jonha\\Source\\Repos\\Jonnix12\\Final_Project_C\\Final_Project_C\\Final_Project_C.csproj",
+      "projectUniqueName": "D:\\C# Project\\Projects\\Final_Project_C\\Final_Project_C\\Final_Project_C.csproj",
       "projectName": "Final_Project_C",
-      "projectPath": "C:\\Users\\jonha\\Source\\Repos\\Jonnix12\\Final_Project_C\\Final_Project_C\\Final_Project_C.csproj",
-      "packagesPath": "C:\\Users\\jonha\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jonha\\Source\\Repos\\Jonnix12\\Final_Project_C\\Final_Project_C\\obj\\",
+      "projectPath": "D:\\C# Project\\Projects\\Final_Project_C\\Final_Project_C\\Final_Project_C.csproj",
+      "packagesPath": "C:\\Users\\jonharel\\.nuget\\packages\\",
+      "outputPath": "D:\\C# Project\\Projects\\Final_Project_C\\Final_Project_C\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\jonha\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\jonharel\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

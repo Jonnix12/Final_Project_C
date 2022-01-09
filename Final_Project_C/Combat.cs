@@ -14,25 +14,17 @@ namespace Final_Project_C
         public Combat()
         {
             
-            CombatStartUp();
             GetEnemy(Player.enemyPosX, Player.enemyPosY);
+            CombatStartUp();
             CombatUpDate();
         }
         void CombatStartUp()
         {
-            
+            Console.Clear();
+            Console.WriteLine("A Battle as began!");
+            CombatScreenPrint();
         }
 
-        void GetEnemy(int X , int Y)
-        {
-            for (int i = 0; i < EnemyManager.enemies.Count; i++)
-            {
-                if (EnemyManager.enemies[i].posX == X && EnemyManager.enemies[i].posY == Y)
-                {
-                    enemy = EnemyManager.enemies[i];
-                }
-            }
-        }
 
         void CombatUpDate()
         {
@@ -40,6 +32,7 @@ namespace Final_Project_C
             {
                 PlayerTurn();
                 EnemyTurn();
+                CombatScreenPrint();
             }
         }
 
@@ -59,10 +52,26 @@ namespace Final_Project_C
             }
 
         }
+        void GetEnemy(int X , int Y)
+        {
+            for (int i = 0; i < EnemyManager.enemies.Count; i++)
+            {
+                if (EnemyManager.enemies[i].posX == X && EnemyManager.enemies[i].posY == Y)
+                {
+                    enemy = EnemyManager.enemies[i];
+                }
+            }
+        }
+
+        void CombatScreenPrint()
+        {
+            Console.Write("Player Stats:\n" + "HP: " + Player.hp + "more stats\n");
+            Console.Write("Enemy Stats:\n" + "HP: " + enemy.hp + "More stats\n");
+        }
 
         void EnemyTurn()
         {
-            enemy.Attack();
+            enemy.EnemyAI();
         }
     }
 }

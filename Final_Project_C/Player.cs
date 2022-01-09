@@ -8,7 +8,7 @@ namespace Final_Project_C
 {
     static class Player
     {
-        static int hp = 100;
+        public static int hp = 100;
         static int movePoint = 5;
         public static int playerCurrentY = Vector2.Y;
         public static int playerCurrentX = Vector2.X;
@@ -52,8 +52,6 @@ namespace Final_Project_C
                     Console.WriteLine("Wrong input ... Please enter again");
                     break;
             }
-        }
-
         static void MoveLeft()
         {
             if (!(MapLoader.mapGride[playerCurrentX - 1, playerCurrentY] == MapLoader.empty))
@@ -102,19 +100,40 @@ namespace Final_Project_C
                 Console.WriteLine("OutOfIndex");
         }
 
+        }
+
         public static void Attack(Enemy enemy)
         {
-            enemy.hp -= 10;
+            
+            if (HitChance())
+            {
+            enemy.TakeDamage(10);
+
+            }
         }
 
-        static void HitChance()
+        static bool HitChance()
         {
+            Random random = new Random();
+            int hitChance = random.Next(5, 9);
+            int hit = random.Next(1, 11);
+
+            if (hit < hitChance)
+            {
+                Console.WriteLine("You Hit!");
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("Miss");
+            }
+            return false;
 
         }
 
-        static void TakeDamage()
+        public static void TakeDamage(int damage)
         {
-
+            hp -= damage;
         }
 
         public static bool EnemyCoill()
@@ -144,5 +163,8 @@ namespace Final_Project_C
             }
             return false;
         }
+
+        
+       
     }
 }
