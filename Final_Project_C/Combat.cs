@@ -31,7 +31,9 @@ namespace Final_Project_C
             while (!Player.IsDead() && !enemy.IsDead())
             {
                 PlayerTurn();
+
                 EnemyTurn();
+                Console.Clear();
                 CombatScreenPrint();
             }
         }
@@ -45,7 +47,7 @@ namespace Final_Project_C
             switch (action)
             {
                 case "1":
-                    Player.Attack(enemy);
+                    Player.StrongAttack(enemy);
                     break;
                 default:
                     break;
@@ -65,8 +67,9 @@ namespace Final_Project_C
 
         void CombatScreenPrint()
         {
-            Console.Write("Player Stats:\n" + "HP: " + Player.hp + "more stats\n");
-            Console.Write("Enemy Stats:\n" + "HP: " + enemy.hp + "More stats\n");
+            
+            Console.Write("Player Stats:\n" + "HP: " + Player.hp + "\nmore stats\n");
+            Console.Write("Enemy Stats:\n" + "HP: " + enemy.hp + "\nMore stats\n");
         }
 
         void EnemyTurn()

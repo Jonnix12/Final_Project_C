@@ -27,7 +27,7 @@ namespace Final_Project_C
 
         void Attack()
         {
-            if (HitChance())
+            if (HitChance(6))
             {
                 Player.TakeDamage(attackDamage);
                 Console.WriteLine("Enemy as attack");
@@ -83,13 +83,12 @@ namespace Final_Project_C
             }
         }
 
-        bool HitChance()
+        bool HitChance(int chance)
         {
             Random random = new Random();
-            int hitChance = random.Next(5, 9);
             int hit = random.Next(1, 11);
 
-            if (hit < hitChance)
+            if (hit < chance)
             {
                 Console.WriteLine("Enemy Hit!");
                 return true;

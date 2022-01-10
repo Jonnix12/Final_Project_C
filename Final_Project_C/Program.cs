@@ -6,7 +6,7 @@ namespace Final_Project_C
     {
         static void Main(string[] args)
         {
-            SceneManager sceneManager = new SceneManager();
+            SceneManager newSceneManager = new SceneManager();
 
         }
     }

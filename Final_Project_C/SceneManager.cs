@@ -8,24 +8,39 @@ namespace Final_Project_C
 {
     class SceneManager
     {
+        ConsoleKey key;
+        bool doUpDate = false;
         public SceneManager()
         {
             MapLoader.MapStartUp();
             GameUpDate();
         }
 
+        void GetPlayerInput()
+        {
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+            key = keyInfo.Key;
+            doUpDate = true;
+        }
+
         void GameUpDate()
         {
             while (true)
             {
-                Player.Move(Console.ReadLine());
-                MapLoader.MapUpDate();
+                GetPlayerInput();
+                Player.Move(key);
+
+                
+                if (doUpDate)
+                {
+                    MapLoader.MapUpDate();
+                    doUpDate = false;
+                }
 
                 if (Player.EnemyCoill())
                 {
                     Combat combat = new Combat();
                 }
-
 
             }
         }

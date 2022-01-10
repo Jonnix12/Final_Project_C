@@ -20,105 +20,95 @@ namespace Final_Project_C
 
         }
 
-        public static void Move(string moveTo)
+        public static void Move(ConsoleKey moveTo)
         {
             switch (moveTo)
             {
-                case "a":
+                case ConsoleKey.A:
                     MoveLeft();
                     break;
-                case "d":
+                case ConsoleKey.D:
                     MoveRight();
                     break;
-                case "w":
+                case ConsoleKey.W:
                     MoveUp();
                     break;
-                case "s":
-                    MoveDown();
-                    break;
-                case "A":
-                    MoveLeft();
-                    break;
-                case "D":
-                    MoveRight();
-                    break;
-                case "W":
-                    MoveUp();
-                    break;
-                case "S":
+                case ConsoleKey.S:
                     MoveDown();
                     break;
                 default:
-                    Console.WriteLine("Wrong input ... Please enter again");
                     break;
             }
-        static void MoveLeft()
-        {
-            if (!(MapLoader.mapGride[playerCurrentX - 1, playerCurrentY] == MapLoader.empty))
+            static void MoveLeft()
             {
-
-                return;
+                if (!(MapLoader.mapGride[playerCurrentX - 1, playerCurrentY] == MapLoader.empty))
+                {
+                    return;
+                }
+                if (Vector2.X > 1)
+                    Vector2.X -= 1;
+                else
+                    Console.WriteLine("OutOfIndex");
             }
 
-
-            if (Vector2.X > 1)
-                Vector2.X -= 1;
-            else
-                Console.WriteLine("OutOfIndex");
-        }
-
-        static void MoveRight()
-        {
-            if (!(MapLoader.mapGride[playerCurrentX + 1, playerCurrentY] == MapLoader.empty))
-                return;
-
-            if (Vector2.X < 38)
-                Vector2.X += 1;
-            else
-                Console.WriteLine("OutOfIndex");
-        }
-
-        static void MoveUp()
-        {
-            if (!(MapLoader.mapGride[playerCurrentX, playerCurrentY - 1] == MapLoader.empty))
-                return;
-
-            if (Vector2.Y > 1)
-                Vector2.Y -= 1;
-            else
-                Console.WriteLine("OutOfIndex");
-        }
-
-        static void MoveDown()
-        {
-            if (!(MapLoader.mapGride[playerCurrentX, playerCurrentY + 1] == MapLoader.empty))
-                return;
-
-            if (Vector2.Y < 18)
-                Vector2.Y += 1;
-            else
-                Console.WriteLine("OutOfIndex");
-        }
-
-        }
-
-        public static void Attack(Enemy enemy)
-        {
-            
-            if (HitChance())
+            static void MoveRight()
             {
-            enemy.TakeDamage(10);
+                if (!(MapLoader.mapGride[playerCurrentX + 1, playerCurrentY] == MapLoader.empty))
+                    return;
 
+                if (Vector2.X < 38)
+                    Vector2.X += 1;
+                else
+                    Console.WriteLine("OutOfIndex");
+            }
+
+            static void MoveUp()
+            {
+                if (!(MapLoader.mapGride[playerCurrentX, playerCurrentY - 1] == MapLoader.empty))
+                    return;
+
+                if (Vector2.Y > 1)
+                    Vector2.Y -= 1;
+                else
+                    Console.WriteLine("OutOfIndex");
+            }
+
+            static void MoveDown()
+            {
+                if (!(MapLoader.mapGride[playerCurrentX, playerCurrentY + 1] == MapLoader.empty))
+                    return;
+
+                if (Vector2.Y < 18)
+                    Vector2.Y += 1;
+                else
+                    Console.WriteLine("OutOfIndex");
+            }
+
+        }
+
+        public static void StrongAttack(Enemy enemy)
+        {
+
+            if (HitChance(5))
+            {
+                enemy.TakeDamage(10);
             }
         }
 
-        static bool HitChance()
+        public static void FastAttack(Enemy enemy)
+        {
+            if (HitChance(7))
+            {
+                enemy.TakeDamage(5);
+            }
+        }
+
+        static bool HitChance(int chance)
         {
             Random random = new Random();
-            int hitChance = random.Next(5, 9);
             int hit = random.Next(1, 11);
 
-            if (hit < hitChance)
+            if (hit < chance)
             {
                 Console.WriteLine("You Hit!");
                 return true;
@@ -164,7 +154,7 @@ namespace Final_Project_C
             return false;
         }
 
-        
-       
+
+
     }
 }
