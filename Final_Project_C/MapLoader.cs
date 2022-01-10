@@ -9,7 +9,7 @@ namespace Final_Project_C
     static class MapLoader
     {
         public static string[,] mapGride = new string[40, 20];
-        static string[,] mapGrideUpDate = new string[20, 20];
+        
 
         public static string empty = " ";
         static string roomEdgeSide = "|";
@@ -38,9 +38,7 @@ namespace Final_Project_C
             }
             RoomSetUp();
             PlayerPosisonUpDate(Vector2.Y, Vector2.X);
-            EnemySpawner.EnemySpawn(5);
             
-            mapGrideUpDate = mapGride;
         }
 
         public static void MapUpDate()
@@ -82,7 +80,7 @@ namespace Final_Project_C
 
         }
 
-        static void MapPrint(string[,] map)
+        public static void MapPrint(string[,] map)
         {
             for (int Y = 0; Y < 20; Y++)
             {
@@ -103,7 +101,7 @@ namespace Final_Project_C
 
             Player.playerCurrentY = y;
             Player.playerCurrentX = x;
-            Player.EnemyCoill();
+            Player.Collider();
 
         }
     }

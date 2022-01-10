@@ -13,6 +13,8 @@ namespace Final_Project_C
         public static int playerCurrentY = Vector2.Y;
         public static int playerCurrentX = Vector2.X;
 
+        static bool CollEnemy = false;
+
         public static int enemyPosX;
         public static int enemyPosY;
         static void PlayerStartUp()
@@ -126,23 +128,36 @@ namespace Final_Project_C
             hp -= damage;
         }
 
-        public static bool EnemyCoill()
+        public static string Collider()
         {
+            
             for (int X = -1; X <= 1; X++)
             {
                 for (int Y = -1; Y <= 1; Y++)
                 {
-                    if (MapLoader.mapGride[playerCurrentX + X, playerCurrentY + Y] == EnemySpawner.enemy)
+                    if (MapLoader.mapGride[playerCurrentX + X, playerCurrentY + Y] != MapLoader.empty)
                     {
-                        enemyPosX = playerCurrentX + X;
-                        enemyPosY = playerCurrentY + Y;
-                        Console.WriteLine("Combat");
-                        return true;
+                        string coll = MapLoader.mapGride[playerCurrentX + X, playerCurrentY + Y];
+
+                        if (coll == EnemySpawner.enemy)
+                        {
+
+                            enemyPosX = playerCurrentX + X;
+                            enemyPosY = playerCurrentY + Y;
+                            CollEnemy = true;
+                            return EnemySpawner.enemy;
+                        }
+
+                        if (true)
+                        {
+                            //add more colliders 
+                        }
                     }
 
                 }
             }
-            return false;
+
+            return null;
         }
 
         public static bool IsDead()

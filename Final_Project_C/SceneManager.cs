@@ -10,9 +10,12 @@ namespace Final_Project_C
     {
         ConsoleKey key;
         bool doUpDate = false;
+
         public SceneManager()
         {
             MapLoader.MapStartUp();
+            EnemySpawner.EnemySpawn(5);
+            MapLoader.MapUpDate();
             GameUpDate();
         }
 
@@ -37,7 +40,7 @@ namespace Final_Project_C
                     doUpDate = false;
                 }
 
-                if (Player.EnemyCoill())
+                if (Player.Collider() == EnemySpawner.enemy)
                 {
                     Combat combat = new Combat();
                 }
