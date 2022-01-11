@@ -14,8 +14,9 @@ namespace Final_Project_C
         public SceneManager()
         {
             MapLoader.MapStartUp();
-            EnemySpawner.EnemySpawn(5);
+            EnemyManager.EnemySpawn(5);
             MapLoader.MapUpDate();
+            inventory.AddSword();
             GameUpDate();
         }
 
@@ -40,7 +41,7 @@ namespace Final_Project_C
                     doUpDate = false;
                 }
 
-                if (Player.Collider() == EnemySpawner.enemy)
+                if (Player.Collider() == EnemyManager.enemy)
                 {
                     Combat combat = new Combat();
                 }

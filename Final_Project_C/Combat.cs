@@ -9,11 +9,10 @@ namespace Final_Project_C
     class Combat
     {
         Enemy enemy;
-        string action;
+        
 
         public Combat()
         {
-
             GetEnemy(Player.enemyPosX, Player.enemyPosY);
             CombatStartUp();
             CombatUpDate();
@@ -39,19 +38,7 @@ namespace Final_Project_C
 
         void PlayerTurn()
         {
-
-            Console.WriteLine("What do you want to do?...");
-            action = Console.ReadLine();
-
-            switch (action)
-            {
-                case "1":
-                    Player.StrongAttack(enemy);
-                    break;
-                default:
-                    break;
-            }
-
+            Player.Attack(enemy);
         }
         void GetEnemy(int X, int Y)
         {

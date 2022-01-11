@@ -9,7 +9,7 @@ namespace Final_Project_C
     static class Player
     {
         public static int hp = 100;
-        static int movePoint = 5;
+        
         public static int playerCurrentY = Vector2.Y;
         public static int playerCurrentX = Vector2.X;
 
@@ -19,7 +19,7 @@ namespace Final_Project_C
         public static int enemyPosY;
         static void PlayerStartUp()
         {
-
+            
         }
 
         public static void Move(ConsoleKey moveTo)
@@ -88,24 +88,110 @@ namespace Final_Project_C
 
         }
 
-        public static void StrongAttack(Enemy enemy)
+        public static void Attack(Enemy enemy)
         {
+            bool isAttack = false;
 
-            if (HitChance(5))
+            while (!isAttack)
             {
-                enemy.TakeDamage(10);
+
+                Console.WriteLine(@"Choose Weapon:
+1.Sword
+2.Axe
+3.Fire Bull");
+
+                switch (Console.ReadKey(true).Key)
+                {
+
+                    case ConsoleKey.D1: //sword
+
+                        if (!inventory.weaponInventory.ContainsKey("sword"))
+                        {
+                            Console.WriteLine("No Sword in inventory");
+                            break;
+                        }
+
+                        Console.WriteLine(@"What attack do you want to do?
+1.Short Attack
+2.Long Attack");
+
+                        switch (Console.ReadKey(true).Key)
+                        {
+                            case ConsoleKey.D1:
+                                inventory.weaponInventory["sword"].ShortAttack(enemy);
+                                isAttack = true;
+                                break;
+                            case ConsoleKey.D2:
+                                inventory.weaponInventory["sword"].LongAttack(enemy);
+                                isAttack = true;
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+
+                    case ConsoleKey.D2://axe
+
+                        if (!inventory.weaponInventory.ContainsKey("axe"))
+                        {
+                            Console.WriteLine("No Axe in inventory");
+                            break;
+                        }
+
+                        Console.WriteLine(@"What attack do you want to do?
+1.Short Attack
+2. Long Attack");
+
+                        switch (Console.ReadKey(true).Key)
+                        {
+                            case ConsoleKey.D1:
+                                inventory.weaponInventory["Axe"].ShortAttack(enemy);
+                                isAttack = true;
+                                break;
+                            case ConsoleKey.D2:
+                                inventory.weaponInventory["Axe"].LongAttack(enemy);
+                                isAttack = true;
+                                break;
+                            default:
+                                break;
+                        }
+
+                        break;
+
+                    case ConsoleKey.D3://firebull
+
+                        if (!inventory.weaponInventory.ContainsKey("firebull"))
+                        {
+                            Console.WriteLine("No firebull in inventory");
+                            break;
+                        }
+
+                        Console.WriteLine(@"What attack do you want to do?
+1.Short Attack
+2. Long Attack");
+
+                        switch (Console.ReadKey(true).Key)
+                        {
+                            case ConsoleKey.D1:
+                                inventory.weaponInventory["firebull"].ShortAttack(enemy);
+                                isAttack = true;
+                                break;
+                            case ConsoleKey.D2:
+                                inventory.weaponInventory["firebull"].LongAttack(enemy);
+                                isAttack = true;
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 
-        public static void FastAttack(Enemy enemy)
-        {
-            if (HitChance(7))
-            {
-                enemy.TakeDamage(5);
-            }
-        }
 
-        static bool HitChance(int chance)
+        public static bool HitChance(int chance)
         {
             Random random = new Random();
             int hit = random.Next(1, 11);
@@ -117,7 +203,7 @@ namespace Final_Project_C
             }
             else
             {
-                Console.WriteLine("Miss");
+                Console.WriteLine("You MISS!!!");
             }
             return false;
 
@@ -130,7 +216,7 @@ namespace Final_Project_C
 
         public static string Collider()
         {
-            
+
             for (int X = -1; X <= 1; X++)
             {
                 for (int Y = -1; Y <= 1; Y++)
@@ -139,13 +225,13 @@ namespace Final_Project_C
                     {
                         string coll = MapLoader.mapGride[playerCurrentX + X, playerCurrentY + Y];
 
-                        if (coll == EnemySpawner.enemy)
+                        if (coll == EnemyManager.enemy)
                         {
 
                             enemyPosX = playerCurrentX + X;
                             enemyPosY = playerCurrentY + Y;
                             CollEnemy = true;
-                            return EnemySpawner.enemy;
+                            return EnemyManager.enemy;
                         }
 
                         if (true)
