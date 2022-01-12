@@ -11,17 +11,18 @@ namespace Final_Project_C
     {
         static int spawnX;
         static int spawnY;
-        public static string enemy = "*";
+        public static string enemy = "☼";
 
         public static List<Enemy> enemies = new List<Enemy>();
-        
-       static public void EnemySpawn(int numOfEnemy)
+
+        static public void EnemySpawn(int numOfEnemy)
         {
             Random random = new Random();
 
-            invalidPoint:
             for (int i = 0; i < numOfEnemy; i++)
             {
+                invalidPoint:
+
                 spawnX = random.Next(1, 39);
                 spawnY = random.Next(1, 19);
 
@@ -30,11 +31,11 @@ namespace Final_Project_C
 
                 for (int j = 0; j < numOfEnemy; j++)
                 {
-                    enemies.Add(new Enemy(spawnX, spawnY));
+                    enemies.Add(new Enemy(enemy, spawnX, spawnY));
                 }
 
             }
         }
-        
+
     }
 }

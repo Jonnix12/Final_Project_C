@@ -8,9 +8,20 @@ namespace Final_Project_C
 {
     class WeaponPickUp
     {
-        public WeaponPickUp(Weapon weapon)
-        {
+        int X;
+        int Y;
 
+        public WeaponPickUp(string Ui, int X, int Y)
+        {
+            MapLoader.mapGride[X, Y] = Ui;
+            this.X = X;
+            this.Y = Y;
+        }
+
+        public void activation()
+        {
+            MapLoader.mapGride[X, Y] = MapLoader.empty;
+            Player.inventory.AddAxe();
         }
     }
 }

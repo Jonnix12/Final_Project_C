@@ -6,25 +6,41 @@ using System.Threading.Tasks;
 
 namespace Final_Project_C
 {
-    static class inventory
+    class inventory
     {
-        public static Dictionary<string, Weapon> weaponInventory = new Dictionary<string, Weapon>();
+        bool isSwordIn = false;
+        bool isAxeIn = false;
+        bool isFireBullIn = false;
+        public Dictionary<string, Weapon> weaponInventory = new Dictionary<string, Weapon>();
 
-        public static void AddSword()
+        public void AddSword()
         {
-            weaponInventory.Add("sword", new Weapon("Sword", 10, 15, 7));
-            Console.WriteLine("1");
+            if (!isSwordIn)
+            {
+                weaponInventory.Add("sword", new Weapon("Sword", 10, 15, 7));
+
+                isSwordIn = true;
+            }
         }
 
-        public static void AddAxe()
+        public void AddAxe()
         {
-            weaponInventory.Add("axe", new Weapon("Axe", 10, 15, 5));
+            if (!isAxeIn)
+            {
+                weaponInventory.Add("axe", new Weapon("Axe", 10, 15, 5));
+                Console.WriteLine("Add Axe");
+                isAxeIn = true;
+            }
         }
 
-        public static void AddFireBull()
+        public void AddFireBull()
         {
-            weaponInventory.Add("firebull", new Weapon("Firebull", 10, 15, 4));
+            if (!isFireBullIn)
+            {
+                weaponInventory.Add("firebull", new Weapon("Firebull", 10, 15, 4));
 
+                isFireBullIn = true;
+            }
         }
     }
 

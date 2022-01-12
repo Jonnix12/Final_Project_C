@@ -53,9 +53,10 @@ namespace Final_Project_C
 
         void CombatScreenPrint()
         {
-
+            Console.Clear();
             Console.Write("Player Stats:\n" + "HP: " + Player.hp + "\nmore stats\n");
             Console.Write("Enemy Stats:\n" + "HP: " + enemy.hp + "\nMore stats\n");
+            
         }
 
         void EnemyTurn()

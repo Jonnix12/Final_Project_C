@@ -8,9 +8,21 @@ namespace Final_Project_C
 {
     class Chast
     {
-        public Chast(int amontOfCoins , bool PowerUp)
-        {
+       
+        int X;
+        int Y;
 
+        public Chast(string Ui,int amontOfCoins , bool PowerUp, int X, int Y)
+        {
+            MapLoader.mapGride[X, Y] = Ui;
+            this.X = X;
+            this.Y = Y;
+
+        }
+
+        public void activation()
+        {
+            MapLoader.mapGride[X, Y] = MapLoader.empty;
         }
     }
 }

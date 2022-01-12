@@ -9,17 +9,19 @@ namespace Final_Project_C
     static class Player
     {
         public static int hp = 100;
-        
+
         public static int playerCurrentY = Vector2.Y;
         public static int playerCurrentX = Vector2.X;
 
-        static bool CollEnemy = false;
-
         public static int enemyPosX;
         public static int enemyPosY;
-        static void PlayerStartUp()
+
+        public static inventory inventory;
+
+        public static void PlayerStartUp()
         {
-            
+            inventory = new inventory();
+            inventory.AddSword();
         }
 
         public static void Move(ConsoleKey moveTo)
@@ -145,11 +147,11 @@ namespace Final_Project_C
                         switch (Console.ReadKey(true).Key)
                         {
                             case ConsoleKey.D1:
-                                inventory.weaponInventory["Axe"].ShortAttack(enemy);
+                                inventory.weaponInventory["axe"].ShortAttack(enemy);
                                 isAttack = true;
                                 break;
                             case ConsoleKey.D2:
-                                inventory.weaponInventory["Axe"].LongAttack(enemy);
+                                inventory.weaponInventory["axe"].LongAttack(enemy);
                                 isAttack = true;
                                 break;
                             default:
@@ -230,13 +232,23 @@ namespace Final_Project_C
 
                             enemyPosX = playerCurrentX + X;
                             enemyPosY = playerCurrentY + Y;
-                            CollEnemy = true;
+
                             return EnemyManager.enemy;
                         }
 
-                        if (true)
+                        if (coll == PickUpManager.chastUi)
                         {
-                            //add more colliders 
+                            return PickUpManager.chastUi;
+                        }
+
+                        if (coll == PickUpManager.hpUi)
+                        {
+                            return PickUpManager.hpUi;
+                        }
+
+                        if (coll == PickUpManager.weaponUi)
+                        {
+                            return PickUpManager.weaponUi;
                         }
                     }
 
@@ -244,6 +256,11 @@ namespace Final_Project_C
             }
 
             return null;
+        }
+
+        public static void AddHp(int hpAdd)
+        {
+            hp += hpAdd;
         }
 
         public static bool IsDead()

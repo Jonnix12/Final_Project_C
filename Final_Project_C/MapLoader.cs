@@ -10,15 +10,12 @@ namespace Final_Project_C
     {
         public static string[,] mapGride = new string[40, 20];
         
-
         public static string empty = " ";
         static string roomEdgeSide = "|";
         
         static string mapEdgeSide = "|";
         static string mapEdgeTopAndBottom = "-";
-        static string player = "+";
-
-
+        static string player = "☺";
 
         public static void MapStartUp()
         {
@@ -38,7 +35,6 @@ namespace Final_Project_C
             }
             RoomSetUp();
             PlayerPosisonUpDate(Vector2.Y, Vector2.X);
-            
         }
 
         public static void MapUpDate()

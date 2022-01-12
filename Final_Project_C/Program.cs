@@ -6,6 +6,7 @@ namespace Final_Project_C
     {
         static void Main(string[] args)
         {
+            Player.PlayerStartUp();
             SceneManager newSceneManager = new SceneManager();
 
         }

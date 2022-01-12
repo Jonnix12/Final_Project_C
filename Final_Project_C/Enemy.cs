@@ -16,9 +16,9 @@ namespace Final_Project_C
 
 
 
-        public Enemy(int X, int Y)
+        public Enemy(string enemyUi,int X, int Y)
         {
-            MapLoader.mapGride[X, Y] = "*";
+            MapLoader.mapGride[X, Y] = enemyUi;
             hp = 30;
             attackDamage = 5;
             posX = X;

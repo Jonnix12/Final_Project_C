@@ -8,9 +8,21 @@ namespace Final_Project_C
 {
     class HpPickUp
     {
-        public HpPickUp(int amontOfHp)
+        int X;
+        int Y;
+        int hpAdd;
+        public HpPickUp(string Ui, int amontOfHp, int X, int Y)
         {
+            MapLoader.mapGride[X, Y] = Ui;
+            this.X = X;
+            this.Y = Y;
+            hpAdd = amontOfHp;
+        }
 
+        public void activation()
+        {
+            MapLoader.mapGride[X, Y] = MapLoader.empty;
+            Player.AddHp(hpAdd);
         }
     }
 }

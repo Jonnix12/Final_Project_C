@@ -6,25 +6,49 @@ using System.Threading.Tasks;
 
 namespace Final_Project_C
 {
-    static class PickUpManager
+    class PickUpManager
     {
-        static void SpawnRandPickUp()
+        public static string weaponUi = "*";
+        public static string hpUi = "+";
+        public static string chastUi = "⌂";
+        static int spawnX;
+        static int spawnY;
+
+        public static WeaponPickUp weaponPickUp;
+        public static HpPickUp hpPickUp;
+        public static Chast chastPickUp;
+
+        static void GetSpawnLocation()
         {
+            Random random = new Random();
+
+            invalidPoint:
+
+            spawnX = random.Next(1, 39);
+            spawnY = random.Next(1, 19);
+
+            if (MapLoader.mapGride[spawnX, spawnY] != MapLoader.empty)
+                goto invalidPoint;
+        }
+
+        public static void SpawnWeapon()
+        {
+            GetSpawnLocation();
+            weaponPickUp = new WeaponPickUp(weaponUi, spawnX, spawnY);
 
         }
 
-        static void SpawnWeapon()
+        public static void SpawnHp()
         {
-            
-        }
-
-        static void SpawnHp()
-        {
+            GetSpawnLocation();
+            hpPickUp = new HpPickUp(hpUi, 10, spawnX, spawnY);
 
         }
 
-        static void SpawnChast()
+        public static void SpawnChast()
         {
+            GetSpawnLocation();
+            chastPickUp = new Chast(chastUi, 5, false, spawnX, spawnY);
 
         }
     }

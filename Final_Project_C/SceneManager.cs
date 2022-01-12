@@ -15,8 +15,8 @@ namespace Final_Project_C
         {
             MapLoader.MapStartUp();
             EnemyManager.EnemySpawn(5);
+            PickUpSpawn();
             MapLoader.MapUpDate();
-            inventory.AddSword();
             GameUpDate();
         }
 
@@ -34,18 +34,54 @@ namespace Final_Project_C
                 GetPlayerInput();
                 Player.Move(key);
 
-                
+
                 if (doUpDate)
                 {
                     MapLoader.MapUpDate();
                     doUpDate = false;
                 }
 
-                if (Player.Collider() == EnemyManager.enemy)
-                {
-                    Combat combat = new Combat();
-                }
+                collideChack();
 
+            }
+        }
+
+        void collideChack()
+        {
+            if (Player.Collider() == EnemyManager.enemy)
+            {
+                Combat combat = new Combat();
+            }
+
+            if (Player.Collider() == PickUpManager.weaponUi)
+            {
+                PickUpManager.weaponPickUp.activation();
+            }
+
+            if (Player.Collider() == PickUpManager.hpUi)
+            {
+                PickUpManager.hpPickUp.activation();
+            }
+
+            if (Player.Collider() == PickUpManager.chastUi)
+            {
+                PickUpManager.chastPickUp.activation();
+            }
+
+        }
+
+        void PickUpSpawn()
+        {
+            Random random = new Random();
+
+            if (random.Next(0, 11) < 4)
+            {
+                PickUpManager.SpawnChast();
+            }
+
+            if (random.Next(0,11) < 6)
+            {
+                PickUpManager.SpawnHp();
             }
         }
     }
