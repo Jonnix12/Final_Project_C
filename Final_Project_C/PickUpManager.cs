@@ -8,9 +8,7 @@ namespace Final_Project_C
 {
     class PickUpManager
     {
-        public static string weaponUi = "*";
-        public static string hpUi = "+";
-        public static string chastUi = "⌂";
+        
         static int spawnX;
         static int spawnY;
 
@@ -27,28 +25,28 @@ namespace Final_Project_C
             spawnX = random.Next(1, 39);
             spawnY = random.Next(1, 19);
 
-            if (MapLoader.mapGride[spawnX, spawnY] != MapLoader.empty)
+            if (MapLoader.mapGride[spawnX, spawnY] != Strings.empty)
                 goto invalidPoint;
         }
 
         public static void SpawnWeapon()
         {
             GetSpawnLocation();
-            weaponPickUp = new WeaponPickUp(weaponUi, spawnX, spawnY);
+            weaponPickUp = new WeaponPickUp(Strings.weaponUi, spawnX, spawnY);
 
         }
 
         public static void SpawnHp()
         {
             GetSpawnLocation();
-            hpPickUp = new HpPickUp(hpUi, 10, spawnX, spawnY);
+            hpPickUp = new HpPickUp(Strings.hpUi, 10, spawnX, spawnY);
 
         }
 
         public static void SpawnChast()
         {
             GetSpawnLocation();
-            chastPickUp = new Chast(chastUi, 5, false, spawnX, spawnY);
+            chastPickUp = new Chast(Strings.chastUi, 5, false, spawnX, spawnY);
 
         }
     }

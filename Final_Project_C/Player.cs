@@ -45,7 +45,7 @@ namespace Final_Project_C
             }
             static void MoveLeft()
             {
-                if (!(MapLoader.mapGride[playerCurrentX - 1, playerCurrentY] == MapLoader.empty))
+                if (!(MapLoader.mapGride[playerCurrentX - 1, playerCurrentY] == Strings.empty))
                 {
                     return;
                 }
@@ -57,7 +57,7 @@ namespace Final_Project_C
 
             static void MoveRight()
             {
-                if (!(MapLoader.mapGride[playerCurrentX + 1, playerCurrentY] == MapLoader.empty))
+                if (!(MapLoader.mapGride[playerCurrentX + 1, playerCurrentY] == Strings.empty))
                     return;
 
                 if (Vector2.X < 38)
@@ -68,7 +68,7 @@ namespace Final_Project_C
 
             static void MoveUp()
             {
-                if (!(MapLoader.mapGride[playerCurrentX, playerCurrentY - 1] == MapLoader.empty))
+                if (!(MapLoader.mapGride[playerCurrentX, playerCurrentY - 1] == Strings.empty))
                     return;
 
                 if (Vector2.Y > 1)
@@ -79,7 +79,7 @@ namespace Final_Project_C
 
             static void MoveDown()
             {
-                if (!(MapLoader.mapGride[playerCurrentX, playerCurrentY + 1] == MapLoader.empty))
+                if (!(MapLoader.mapGride[playerCurrentX, playerCurrentY + 1] == Strings.empty))
                     return;
 
                 if (Vector2.Y < 18)
@@ -107,7 +107,7 @@ namespace Final_Project_C
 
                     case ConsoleKey.D1: //sword
 
-                        if (!inventory.weaponInventory.ContainsKey("sword"))
+                        if (!inventory.weapons.ContainsKey("sword"))
                         {
                             Console.WriteLine("No Sword in inventory");
                             break;
@@ -120,11 +120,11 @@ namespace Final_Project_C
                         switch (Console.ReadKey(true).Key)
                         {
                             case ConsoleKey.D1:
-                                inventory.weaponInventory["sword"].ShortAttack(enemy);
+                                inventory.weapons["sword"].ShortAttack(enemy);
                                 isAttack = true;
                                 break;
                             case ConsoleKey.D2:
-                                inventory.weaponInventory["sword"].LongAttack(enemy);
+                                inventory.weapons["sword"].LongAttack(enemy);
                                 isAttack = true;
                                 break;
                             default:
@@ -134,7 +134,7 @@ namespace Final_Project_C
 
                     case ConsoleKey.D2://axe
 
-                        if (!inventory.weaponInventory.ContainsKey("axe"))
+                        if (!inventory.weapons.ContainsKey("axe"))
                         {
                             Console.WriteLine("No Axe in inventory");
                             break;
@@ -147,11 +147,11 @@ namespace Final_Project_C
                         switch (Console.ReadKey(true).Key)
                         {
                             case ConsoleKey.D1:
-                                inventory.weaponInventory["axe"].ShortAttack(enemy);
+                                inventory.weapons["axe"].ShortAttack(enemy);
                                 isAttack = true;
                                 break;
                             case ConsoleKey.D2:
-                                inventory.weaponInventory["axe"].LongAttack(enemy);
+                                inventory.weapons["axe"].LongAttack(enemy);
                                 isAttack = true;
                                 break;
                             default:
@@ -162,7 +162,7 @@ namespace Final_Project_C
 
                     case ConsoleKey.D3://firebull
 
-                        if (!inventory.weaponInventory.ContainsKey("firebull"))
+                        if (!inventory.weapons.ContainsKey("firebull"))
                         {
                             Console.WriteLine("No firebull in inventory");
                             break;
@@ -175,11 +175,11 @@ namespace Final_Project_C
                         switch (Console.ReadKey(true).Key)
                         {
                             case ConsoleKey.D1:
-                                inventory.weaponInventory["firebull"].ShortAttack(enemy);
+                                inventory.weapons["firebull"].ShortAttack(enemy);
                                 isAttack = true;
                                 break;
                             case ConsoleKey.D2:
-                                inventory.weaponInventory["firebull"].LongAttack(enemy);
+                                inventory.weapons["firebull"].LongAttack(enemy);
                                 isAttack = true;
                                 break;
                             default:
@@ -223,32 +223,36 @@ namespace Final_Project_C
             {
                 for (int Y = -1; Y <= 1; Y++)
                 {
-                    if (MapLoader.mapGride[playerCurrentX + X, playerCurrentY + Y] != MapLoader.empty)
+                    if (MapLoader.mapGride[playerCurrentX + X, playerCurrentY + Y] != Strings.empty)
                     {
                         string coll = MapLoader.mapGride[playerCurrentX + X, playerCurrentY + Y];
 
-                        if (coll == EnemyManager.enemy)
+                        if (coll == Strings.enemy)
                         {
-
                             enemyPosX = playerCurrentX + X;
                             enemyPosY = playerCurrentY + Y;
 
-                            return EnemyManager.enemy;
+                            return Strings.enemy;
                         }
 
-                        if (coll == PickUpManager.chastUi)
+                        if (coll == Strings.chastUi)
                         {
-                            return PickUpManager.chastUi;
+                            return Strings.chastUi;
                         }
 
-                        if (coll == PickUpManager.hpUi)
+                        if (coll == Strings.hpUi)
                         {
-                            return PickUpManager.hpUi;
+                            return Strings.hpUi;
                         }
 
-                        if (coll == PickUpManager.weaponUi)
+                        if (coll == Strings.weaponUi)
                         {
-                            return PickUpManager.weaponUi;
+                            return Strings.weaponUi;
+                        }
+
+                        if (coll == Strings.exit)
+                        {
+                            return Strings.exit;
                         }
                     }
 

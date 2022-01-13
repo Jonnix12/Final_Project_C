@@ -46,7 +46,7 @@ namespace Final_Project_C
                 return true;
             }
             EnemyManager.enemies.Remove(this);
-            MapLoader.mapGride[Player.enemyPosX, Player.enemyPosY] = MapLoader.empty;
+            MapLoader.mapGride[Player.enemyPosX, Player.enemyPosY] = Strings.empty;
             return false;
 
 

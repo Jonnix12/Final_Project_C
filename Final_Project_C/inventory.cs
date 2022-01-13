@@ -11,13 +11,13 @@ namespace Final_Project_C
         bool isSwordIn = false;
         bool isAxeIn = false;
         bool isFireBullIn = false;
-        public Dictionary<string, Weapon> weaponInventory = new Dictionary<string, Weapon>();
+        public Dictionary<string, Weapon> weapons = new Dictionary<string, Weapon>();
 
         public void AddSword()
         {
             if (!isSwordIn)
             {
-                weaponInventory.Add("sword", new Weapon("Sword", 10, 15, 7));
+                weapons.Add("sword", new Weapon("Sword", 10, 15, 7));
 
                 isSwordIn = true;
             }
@@ -27,7 +27,7 @@ namespace Final_Project_C
         {
             if (!isAxeIn)
             {
-                weaponInventory.Add("axe", new Weapon("Axe", 10, 15, 5));
+                weapons.Add("axe", new Weapon("Axe", 10, 15, 5));
                 Console.WriteLine("Add Axe");
                 isAxeIn = true;
             }
@@ -37,7 +37,7 @@ namespace Final_Project_C
         {
             if (!isFireBullIn)
             {
-                weaponInventory.Add("firebull", new Weapon("Firebull", 10, 15, 4));
+                weapons.Add("firebull", new Weapon("Firebull", 10, 15, 4));
 
                 isFireBullIn = true;
             }

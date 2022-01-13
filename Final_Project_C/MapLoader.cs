@@ -9,32 +9,35 @@ namespace Final_Project_C
     static class MapLoader
     {
         public static string[,] mapGride = new string[40, 20];
-        
-        public static string empty = " ";
-        static string roomEdgeSide = "|";
-        
-        static string mapEdgeSide = "|";
-        static string mapEdgeTopAndBottom = "-";
-        static string player = "☺";
 
-        public static void MapStartUp()
+
+
+        public static void MapStartUp(int entryX, int entryY)
         {
             for (int Y = 0; Y < 20; Y++)
             {
                 for (int X = 0; X < 40; X++)
                 {
-                    mapGride[X, Y] = empty;
+                    mapGride[X, Y] = Strings.empty;
 
                     if (X == 0 || X == 39)
-                        mapGride[X, Y] = mapEdgeSide;
+                        mapGride[X, Y] = Strings.mapEdgeSide;
 
                     if (Y == 0 || Y == 19)
-                        mapGride[X, Y] = mapEdgeTopAndBottom;
+                        mapGride[X, Y] = Strings.mapEdgeTopAndBottom;
 
                 }
             }
+            Random random = new Random();
+
+            int Exit = random.Next(1, 18);
+
+            mapGride[39, Exit] = Strings.exit;
+
             RoomSetUp();
-            PlayerPosisonUpDate(Vector2.Y, Vector2.X);
+            
+            Vector2.X = 1;
+            PlayerPosisonUpDate(Vector2.X, entryY);
         }
 
         public static void MapUpDate()
@@ -66,11 +69,11 @@ namespace Final_Project_C
 
                     for (int Y = minY; Y < maxY + 1; Y++)
                     {
-                        mapGride[X, Y] = roomEdgeSide;
+                        mapGride[X, Y] = Strings.roomEdgeSide;
                     }
                 }
-                mapGride[X, minY] = mapEdgeTopAndBottom;
-                mapGride[X, maxY] = mapEdgeTopAndBottom;
+                mapGride[X, minY] = Strings.mapEdgeTopAndBottom;
+                mapGride[X, maxY] = Strings.mapEdgeTopAndBottom;
 
             }
 
@@ -87,13 +90,14 @@ namespace Final_Project_C
                 Console.WriteLine();
             }
             Console.WriteLine(Player.playerCurrentX + "," + Player.playerCurrentY);
+            Console.WriteLine(EnemyManager.enemies.Count);
         }
 
 
         public static void PlayerPosisonUpDate(int x, int y)
         {
-            mapGride[Player.playerCurrentX, Player.playerCurrentY] = empty;
-            mapGride[x, y] = player;
+            mapGride[Player.playerCurrentX, Player.playerCurrentY] = Strings.empty;
+            mapGride[x, y] = Strings.player;
 
             Player.playerCurrentY = y;
             Player.playerCurrentX = x;

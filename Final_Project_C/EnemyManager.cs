@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 namespace Final_Project_C
 {
 
-    static class EnemyManager
+    class EnemyManager
     {
-        static int spawnX;
-        static int spawnY;
-        public static string enemy = "☼";
+        int spawnX;
+        int spawnY;
+
 
         public static List<Enemy> enemies = new List<Enemy>();
 
-        static public void EnemySpawn(int numOfEnemy)
+        public void EnemySpawn(int numOfEnemy)
         {
             Random random = new Random();
 
@@ -26,13 +26,11 @@ namespace Final_Project_C
                 spawnX = random.Next(1, 39);
                 spawnY = random.Next(1, 19);
 
-                if (MapLoader.mapGride[spawnX, spawnY] != MapLoader.empty)
+                if (MapLoader.mapGride[spawnX, spawnY] != Strings.empty)
                     goto invalidPoint;
 
-                for (int j = 0; j < numOfEnemy; j++)
-                {
-                    enemies.Add(new Enemy(enemy, spawnX, spawnY));
-                }
+                enemies.Add(new Enemy(Strings.enemy, spawnX, spawnY));
+
 
             }
         }

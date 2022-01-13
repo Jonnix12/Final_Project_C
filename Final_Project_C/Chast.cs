@@ -22,7 +22,7 @@ namespace Final_Project_C
 
         public void activation()
         {
-            MapLoader.mapGride[X, Y] = MapLoader.empty;
+            MapLoader.mapGride[X, Y] = Strings.empty;
         }
     }
 }

@@ -11,10 +11,11 @@ namespace Final_Project_C
         ConsoleKey key;
         bool doUpDate = false;
 
-        public SceneManager()
+        public SceneManager(int entryX, int entryY)
         {
-            MapLoader.MapStartUp();
-            EnemyManager.EnemySpawn(5);
+            MapLoader.MapStartUp(entryX, entryY);
+            EnemyManager enemyManager = new EnemyManager();
+            enemyManager.EnemySpawn(5);
             PickUpSpawn();
             MapLoader.MapUpDate();
             GameUpDate();
@@ -48,24 +49,29 @@ namespace Final_Project_C
 
         void collideChack()
         {
-            if (Player.Collider() == EnemyManager.enemy)
+            if (Player.Collider() == Strings.enemy)
             {
                 Combat combat = new Combat();
             }
 
-            if (Player.Collider() == PickUpManager.weaponUi)
+            if (Player.Collider() == Strings.weaponUi)
             {
                 PickUpManager.weaponPickUp.activation();
             }
 
-            if (Player.Collider() == PickUpManager.hpUi)
+            if (Player.Collider() == Strings.hpUi)
             {
                 PickUpManager.hpPickUp.activation();
             }
 
-            if (Player.Collider() == PickUpManager.chastUi)
+            if (Player.Collider() == Strings.chastUi)
             {
                 PickUpManager.chastPickUp.activation();
+            }
+
+            if (Player.Collider() == Strings.exit && EnemyManager.enemies.Count == 0)
+            {
+                MoveToNextScene(Vector2.X, Vector2.Y);
             }
 
         }
@@ -79,10 +85,23 @@ namespace Final_Project_C
                 PickUpManager.SpawnChast();
             }
 
-            if (random.Next(0,11) < 6)
+            if (random.Next(0, 11) < 6)
             {
                 PickUpManager.SpawnHp();
             }
+
+            if (random.Next(0, 11) < 3)
+            {
+                PickUpManager.SpawnWeapon();
+            }
         }
+
+        void MoveToNextScene(int entryX, int entryY)
+        {
+            Console.Clear();
+            SceneManager newScene = new SceneManager(entryX, entryY);
+        }
+
+        
     }
 }
