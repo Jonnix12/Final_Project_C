@@ -20,8 +20,9 @@ namespace Final_Project_C
         void CombatStartUp()
         {
             Console.Clear();
-            Console.WriteLine("A Battle as began!\n");
-            CombatScreenPrint();
+            Console.WriteLine("A Battle as began!\n\n");
+            Console.Write("Player Stats:\n" + "HP: " + Player.hp + "\nmore stats\n\n");
+            Console.Write("Enemy Stats:\n" + "HP: " + enemy.hp + "\nMore stats\n\n");
         }
 
 
@@ -30,8 +31,10 @@ namespace Final_Project_C
             while (!Player.IsDead() && !enemy.IsDead())
             {
                 PlayerTurn();
-
+                Console.WriteLine("Enemy turn...\n");
                 EnemyTurn();
+                Console.WriteLine("\nPrees any key to Continue...");
+                Console.ReadKey();
                 CombatScreenPrint();
             }
         }

@@ -59,8 +59,8 @@ namespace Final_Project_C
             minY = random.Next(1, 12);
             maxY = random.Next(minY + 4, minY + 10);
 
-            minX = random.Next(1, 32);
-            maxX = random.Next(minX + 4, minX + 13);
+            minX = random.Next(1, 30);
+            maxX = random.Next(minX + 4, minX + 10);
 
             for (int X = minX; X < maxX + 1; X++)
             {
@@ -90,7 +90,8 @@ namespace Final_Project_C
                 Console.WriteLine();
             }
             Console.WriteLine(Player.playerCurrentX + "," + Player.playerCurrentY);
-            Console.WriteLine(EnemyManager.enemies.Count);
+            Console.WriteLine(@"HP:{0}", Player.hp);
+            
         }
 
 

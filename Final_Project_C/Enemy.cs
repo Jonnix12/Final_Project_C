@@ -30,7 +30,6 @@ namespace Final_Project_C
             if (HitChance(6))
             {
                 Player.TakeDamage(attackDamage);
-                Console.WriteLine("Enemy as attack");
             }
         }
 

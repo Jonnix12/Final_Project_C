@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\C# Project\\Projects\\Final_Project_C\\Final_Project_C\\Final_Project_C.csproj": {}
+    "C:\\Users\\jonha\\Documents\\GitHub\\C#\\Final_Project_C\\Final_Project_C\\Final_Project_C.csproj": {}
   },
   "projects": {
-    "D:\\C# Project\\Projects\\Final_Project_C\\Final_Project_C\\Final_Project_C.csproj": {
+    "C:\\Users\\jonha\\Documents\\GitHub\\C#\\Final_Project_C\\Final_Project_C\\Final_Project_C.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\C# Project\\Projects\\Final_Project_C\\Final_Project_C\\Final_Project_C.csproj",
+        "projectUniqueName": "C:\\Users\\jonha\\Documents\\GitHub\\C#\\Final_Project_C\\Final_Project_C\\Final_Project_C.csproj",
         "projectName": "Final_Project_C",
-        "projectPath": "D:\\C# Project\\Projects\\Final_Project_C\\Final_Project_C\\Final_Project_C.csproj",
-        "packagesPath": "C:\\Users\\jonharel\\.nuget\\packages\\",
-        "outputPath": "D:\\C# Project\\Projects\\Final_Project_C\\Final_Project_C\\obj\\",
+        "projectPath": "C:\\Users\\jonha\\Documents\\GitHub\\C#\\Final_Project_C\\Final_Project_C\\Final_Project_C.csproj",
+        "packagesPath": "C:\\Users\\jonha\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jonha\\Documents\\GitHub\\C#\\Final_Project_C\\Final_Project_C\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\jonharel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\jonha\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
