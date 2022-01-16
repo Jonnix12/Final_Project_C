@@ -12,17 +12,22 @@ namespace Final_Project_C
         public int posX;
         public int posY;
 
+        public string title;
+        public string character;
+        public string name;
+
         int attackDamage;
 
 
 
-        public Enemy(string enemyUi,int X, int Y)
+        public Enemy(string enemyUi, int X, int Y)
         {
             MapLoader.mapGride[X, Y] = enemyUi;
             hp = 30;
             attackDamage = 5;
             posX = X;
             posY = Y;
+            RnadName();
         }
 
         void Attack()
@@ -42,13 +47,11 @@ namespace Final_Project_C
         {
             if (hp <= 0)
             {
+                EnemyManager.enemies.Remove(this);
+                MapLoader.mapGride[Player.enemyPosX, Player.enemyPosY] = Strings.space;
                 return true;
             }
-            EnemyManager.enemies.Remove(this);
-            MapLoader.mapGride[Player.enemyPosX, Player.enemyPosY] = Strings.empty;
             return false;
-
-
         }
 
         public void EnemyAI()
@@ -69,8 +72,8 @@ namespace Final_Project_C
             else if (hp < 11)
             {
                 isAttack = true;
-            } 
-            
+            }
+
 
             if (isAttack)//Attack
             {
@@ -97,6 +100,20 @@ namespace Final_Project_C
                 Console.WriteLine("Enemy Miss");
             }
             return false;
+
+        }
+
+        void RnadName()
+        {
+            string[] title = new string[] { "strong", "mighty", "threatening", "crazy", "huge"};
+            string[] character = new string[] { "Orc", "vampire","Demon", "Cyclops","werewolf"};
+            string[] name = new string[] { "Dave", "Jeremy", "Philip", "Ronen", "Shalom","Motty"};
+
+            Random rand = new Random();
+
+            this.title = title[rand.Next(0, title.Length)];
+            this.character = character[rand.Next(0, character.Length)];
+            this.name = name[rand.Next(0, name.Length)];
 
         }
     }

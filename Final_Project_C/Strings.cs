@@ -13,7 +13,8 @@ namespace Final_Project_C
         public static string mapEdgeTopAndBottom = "-";
         public static string player = "☺";
         public static string exit = "$";
-        public static string empty = " ";
+        public static string space = " ";
+        public static string rommSpace = " ";
         public static string enemy = "☼";
         public static string weaponUi = "*";
         public static string hpUi = "+";

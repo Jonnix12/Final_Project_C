@@ -25,7 +25,7 @@ namespace Final_Project_C
             spawnX = random.Next(1, 39);
             spawnY = random.Next(1, 19);
 
-            if (MapLoader.mapGride[spawnX, spawnY] != Strings.empty)
+            if (MapLoader.mapGride[spawnX, spawnY] != Strings.rommSpace)
                 goto invalidPoint;
         }
 

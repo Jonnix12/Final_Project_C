@@ -10,6 +10,8 @@ namespace Final_Project_C
     {
         public static int hp = 100;
 
+        public static int score = 0;
+
         public static int playerCurrentY = Vector2.Y;
         public static int playerCurrentX = Vector2.X;
 
@@ -45,7 +47,7 @@ namespace Final_Project_C
             }
             static void MoveLeft()
             {
-                if (!(MapLoader.mapGride[playerCurrentX - 1, playerCurrentY] == Strings.empty))
+                if (!(MapLoader.mapGride[playerCurrentX - 1, playerCurrentY] == Strings.space))
                 {
                     return;
                 }
@@ -57,7 +59,7 @@ namespace Final_Project_C
 
             static void MoveRight()
             {
-                if (!(MapLoader.mapGride[playerCurrentX + 1, playerCurrentY] == Strings.empty))
+                if (!(MapLoader.mapGride[playerCurrentX + 1, playerCurrentY] == Strings.space))
                     return;
 
                 if (Vector2.X < 38)
@@ -68,7 +70,7 @@ namespace Final_Project_C
 
             static void MoveUp()
             {
-                if (!(MapLoader.mapGride[playerCurrentX, playerCurrentY - 1] == Strings.empty))
+                if (!(MapLoader.mapGride[playerCurrentX, playerCurrentY - 1] == Strings.space))
                     return;
 
                 if (Vector2.Y > 1)
@@ -79,7 +81,7 @@ namespace Final_Project_C
 
             static void MoveDown()
             {
-                if (!(MapLoader.mapGride[playerCurrentX, playerCurrentY + 1] == Strings.empty))
+                if (!(MapLoader.mapGride[playerCurrentX, playerCurrentY + 1] == Strings.space))
                     return;
 
                 if (Vector2.Y < 18)
@@ -223,7 +225,7 @@ namespace Final_Project_C
             {
                 for (int Y = -1; Y <= 1; Y++)
                 {
-                    if (MapLoader.mapGride[playerCurrentX + X, playerCurrentY + Y] != Strings.empty)
+                    if (MapLoader.mapGride[playerCurrentX + X, playerCurrentY + Y] != Strings.space)
                     {
                         string coll = MapLoader.mapGride[playerCurrentX + X, playerCurrentY + Y];
 

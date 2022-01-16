@@ -18,7 +18,7 @@ namespace Final_Project_C
             {
                 for (int X = 0; X < 40; X++)
                 {
-                    mapGride[X, Y] = Strings.empty;
+                    mapGride[X, Y] = Strings.space;
 
                     if (X == 0 || X == 39)
                         mapGride[X, Y] = Strings.mapEdgeSide;
@@ -35,7 +35,12 @@ namespace Final_Project_C
             mapGride[39, Exit] = Strings.exit;
 
             RoomSetUp();
+            RoomSetUp();
+            RoomSetUp();
+            RoomSetUp();
             
+
+
             Vector2.X = 1;
             PlayerPosisonUpDate(Vector2.X, entryY);
         }
@@ -54,27 +59,88 @@ namespace Final_Project_C
             int maxY;
             int minY;
 
+
+            bool isRoomBuild = false;
+
             Random random = new Random();
 
-            minY = random.Next(1, 12);
-            maxY = random.Next(minY + 4, minY + 10);
-
-            minX = random.Next(1, 30);
-            maxX = random.Next(minX + 4, minX + 10);
-
-            for (int X = minX; X < maxX + 1; X++)
+            while (!isRoomBuild)
             {
-                if (X == minX || X == maxX)
-                {
+                bool buildRoom = true;
 
-                    for (int Y = minY; Y < maxY + 1; Y++)
+                minY = random.Next(1, 10);
+                maxY = random.Next(minY + 4, minY + 8);
+
+                minX = random.Next(1, 30);
+                maxX = random.Next(minX + 4, minX + 8);
+
+                for (int X = minX; X < maxX; X++)
+                {
+                    for (int Y = minY; Y < maxY; Y++)
                     {
-                        mapGride[X, Y] = Strings.roomEdgeSide;
+                        if (!(mapGride[X, Y] == Strings.space))
+                        {
+                            buildRoom = false;
+                        }
                     }
                 }
-                mapGride[X, minY] = Strings.mapEdgeTopAndBottom;
-                mapGride[X, maxY] = Strings.mapEdgeTopAndBottom;
 
+                if (buildRoom)
+                {
+
+                    for (int X = minX; X < maxX; X++)
+                    {
+                        for (int Y = minY; Y < maxY; Y++)
+                        {
+                            mapGride[X, Y] = Strings.rommSpace;
+                        }
+                    }
+
+                    for (int X = minX; X < maxX + 1; X++)
+                    {
+                        if (X == minX || X == maxX)
+                        {
+                            for (int Y = minY; Y < maxY + 1; Y++)
+                            {
+                                mapGride[X, Y] = Strings.roomEdgeSide;
+                            }
+                        }
+                        mapGride[X, minY] = Strings.mapEdgeTopAndBottom;
+                        mapGride[X, maxY] = Strings.mapEdgeTopAndBottom;
+                    }
+
+
+                    int[] doorChoose = new int[] { minX, maxX, minY, maxY };
+
+                    invalidPoint:
+                    int doorWall = random.Next(0, 4);
+
+                    if (doorWall <= 1)
+                    {
+                        int posY = random.Next(minY + 1, maxY - 1);
+                        if (mapGride[doorChoose[doorWall] + 1, posY] == Strings.space && mapGride[doorChoose[doorWall] - 1, posY] == Strings.space)
+                            mapGride[doorChoose[doorWall], posY] = Strings.space;
+                        else
+                            goto invalidPoint;
+
+
+
+                    }
+                    else if (doorWall >= 2)
+                    {
+                        int posX = random.Next(minX + 1, maxX - 1);
+
+                        if (mapGride[posX, doorChoose[doorWall] + 1] == Strings.space && mapGride[posX, doorChoose[doorWall] - 1] == Strings.space)
+                            mapGride[posX, doorChoose[doorWall]] = Strings.space;
+                        else
+                            goto invalidPoint;
+
+                        
+
+                    }
+
+                    isRoomBuild = true;
+                }
             }
 
         }
@@ -90,14 +156,15 @@ namespace Final_Project_C
                 Console.WriteLine();
             }
             Console.WriteLine(Player.playerCurrentX + "," + Player.playerCurrentY);
-            Console.WriteLine(@"HP:{0}", Player.hp);
-            
+            Console.WriteLine("HP:{0}", Player.hp);
+            Console.WriteLine("Score:{0}", Player.score);
+
         }
 
 
         public static void PlayerPosisonUpDate(int x, int y)
         {
-            mapGride[Player.playerCurrentX, Player.playerCurrentY] = Strings.empty;
+            mapGride[Player.playerCurrentX, Player.playerCurrentY] = Strings.space;
             mapGride[x, y] = Strings.player;
 
             Player.playerCurrentY = y;

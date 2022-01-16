@@ -9,7 +9,7 @@ namespace Final_Project_C
     class Combat
     {
         Enemy enemy;
-        
+
 
         public Combat()
         {
@@ -20,7 +20,8 @@ namespace Final_Project_C
         void CombatStartUp()
         {
             Console.Clear();
-            Console.WriteLine("A Battle as began!\n\n");
+            Console.WriteLine("A Battle as began!\n");
+            Console.WriteLine("You encountered a {0} {1} named {2}", enemy.title, enemy.character, enemy.name + "\n");
             Console.Write("Player Stats:\n" + "HP: " + Player.hp + "\nmore stats\n\n");
             Console.Write("Enemy Stats:\n" + "HP: " + enemy.hp + "\nMore stats\n\n");
         }
@@ -30,6 +31,7 @@ namespace Final_Project_C
         {
             while (!Player.IsDead() && !enemy.IsDead())
             {
+                Console.WriteLine("Your turn...");
                 PlayerTurn();
                 Console.WriteLine("Enemy turn...\n");
                 EnemyTurn();
@@ -37,12 +39,24 @@ namespace Final_Project_C
                 Console.ReadKey();
                 CombatScreenPrint();
             }
+
+            Console.Clear();
+            Console.WriteLine("\nYou {0} {1}", EndScreenText(), enemy.name);
+            Console.WriteLine("\nPrees any key to Continue...");
+            Console.ReadKey();
+            MapLoader.MapUpDate();
         }
 
         void PlayerTurn()
         {
             Player.Attack(enemy);
         }
+
+        void EnemyTurn()
+        {
+            enemy.EnemyAI();
+        }
+
         void GetEnemy(int X, int Y)
         {
             for (int i = 0; i < EnemyManager.enemies.Count; i++)
@@ -57,14 +71,17 @@ namespace Final_Project_C
         void CombatScreenPrint()
         {
             Console.Clear();
-            Console.Write("Player Stats:\n" + "HP: " + Player.hp + "\nmore stats\n");
-            Console.Write("Enemy Stats:\n" + "HP: " + enemy.hp + "\nMore stats\n");
-            
+            Console.Write("Player Stats:\n" + "HP: " + Player.hp + "\nmore stats\n\n");
+            Console.Write("Enemy Stats:\n" + "HP: " + enemy.hp + "\nMore stats\n\n");
         }
 
-        void EnemyTurn()
+        string EndScreenText()
         {
-            enemy.EnemyAI();
+            string[] text = new string[] { "murdered ", "slaughter", "tear", "humiliation", "crashed" };
+
+            Random rand = new Random();
+
+            return text[rand.Next(0, text.Length)];
         }
     }
 }
