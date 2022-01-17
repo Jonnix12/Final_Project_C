@@ -17,7 +17,7 @@ namespace Final_Project_C
         {
             if (!isSwordIn)
             {
-                weapons.Add("sword", new Weapon("Sword", 10, 15, 7));
+                weapons.Add("sword", new Weapon("Sword",7, 10, 7));
 
                 isSwordIn = true;
             }
@@ -27,7 +27,7 @@ namespace Final_Project_C
         {
             if (!isAxeIn)
             {
-                weapons.Add("axe", new Weapon("Axe", 10, 15, 5));
+                weapons.Add("axe", new Weapon("Axe", 13, 15, 5));
                 Console.WriteLine("Add Axe");
                 isAxeIn = true;
             }
@@ -37,7 +37,7 @@ namespace Final_Project_C
         {
             if (!isFireBullIn)
             {
-                weapons.Add("firebull", new Weapon("Firebull", 10, 15, 4));
+                weapons.Add("firebull", new Weapon("Firebull", 10, 3, 4));
 
                 isFireBullIn = true;
             }

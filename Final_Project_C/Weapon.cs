@@ -23,7 +23,7 @@ namespace Final_Project_C
 
         public void ShortAttack(Enemy enemy)
         {
-            if (Player.HitChance(hitChance))
+            if (Player.StrikeChance(hitChance))
             {
                 enemy.TakeDamage(damage);
             }
@@ -31,7 +31,7 @@ namespace Final_Project_C
 
         public void LongAttack(Enemy enemy)
         {
-            if (Player.HitChance(hitChance - 2))
+            if (Player.StrikeChance(hitChance - 2))
             {
                 enemy.TakeDamage(damage + 5); 
             }

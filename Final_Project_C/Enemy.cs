@@ -17,6 +17,8 @@ namespace Final_Project_C
         public string name;
 
         int attackDamage;
+        float precision;
+
 
 
 
@@ -28,14 +30,28 @@ namespace Final_Project_C
             posX = X;
             posY = Y;
             RnadName();
+
+            Random random = new Random();
+
+            switch (random.Next(0, 3))
+            {
+                case 0:
+                    precision = 50;
+                    break;
+                case 1:
+                    precision = 65;
+                    break;
+                case 2:
+                    precision = 75;
+                    break;
+                default:
+                    break;
+            }
         }
 
         void Attack()
         {
-            if (HitChance(6))
-            {
-                Player.TakeDamage(attackDamage);
-            }
+            Player.HitChance(attackDamage, precision);
         }
 
         public void TakeDamage(int damage)
@@ -105,9 +121,9 @@ namespace Final_Project_C
 
         void RnadName()
         {
-            string[] title = new string[] { "strong", "mighty", "threatening", "crazy", "huge"};
-            string[] character = new string[] { "Orc", "vampire","Demon", "Cyclops","werewolf"};
-            string[] name = new string[] { "Dave", "Jeremy", "Philip", "Ronen", "Shalom","Motty"};
+            string[] title = new string[] { "strong", "mighty", "threatening", "crazy", "huge" };
+            string[] character = new string[] { "Orc", "vampire", "Demon", "Cyclops", "werewolf" };
+            string[] name = new string[] { "Dave", "Jeremy", "Philip", "Ronen", "Shalom", "Motty" };
 
             Random rand = new Random();
 

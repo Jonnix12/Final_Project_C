@@ -8,7 +8,9 @@ namespace Final_Project_C
 {
     static class Player
     {
-        public static int hp = 100;
+        public static float hp = 100;
+
+        public static float shield = 25;
 
         public static int score = 0;
 
@@ -195,7 +197,7 @@ namespace Final_Project_C
         }
 
 
-        public static bool HitChance(int chance)
+        public static bool StrikeChance(int chance)
         {
             Random random = new Random();
             int hit = random.Next(1, 11);
@@ -213,9 +215,59 @@ namespace Final_Project_C
 
         }
 
-        public static void TakeDamage(int damage)
+        public static void HitChance(int damage, float hit) //חישוב סיכוי פגיעה
         {
-            hp -= damage;
+            bool isHit = false; //משתנה אם פעתה
+
+            Random hitRandom = new Random(); //חישוב הרנדום
+            int hitChance = hitRandom.Next(1, 100);
+
+            if (hitChance <= hit)
+            {
+                isHit = true;
+
+                Console.WriteLine("\nEnemy HIT!");
+                TakeDamage(damage);
+                shield -= damage * 0.25f;
+                //אםפגעת מוריד חיים וקצת מגן
+                if (shield < 0)
+                {
+                    shield = 0; //אם המגן קטן מ0 אז אני מאפס אותו
+                }
+            }
+
+            hitChance = hitRandom.Next(1, 100);
+            hit += shield;
+            if (hitChance <= hit && !isHit)// בודק אם עשיתה הגנה ושלא נפגעת
+            {
+                Console.WriteLine("\nYou Block!");
+                shield -= damage * 0.35f;
+
+                if (shield < 0)
+                {
+                    shield = 0;
+                }
+            }
+
+            else if (!isHit) //אם לא הצלחת להגן או לפגוע אז פפיספסת
+            {
+                Console.WriteLine("\nEnemy MISS!");
+
+            }
+
+
+        }
+
+        public static void TakeDamage(int damage) // פקודה לחישוב נזק שנגרם לך
+        {
+            float previousHP = hp;
+            float shieldPresant = 1 - (shield / 100);
+
+            hp -= damage * shieldPresant; //עושה נזק ביחס לאחוז המגן שיש לך
+            Console.WriteLine("Damage: " + (previousHP - hp));
+
+
+            IsDead(); //בודק אם הדמות מת בתור האחרון
         }
 
         public static string Collider()
@@ -267,6 +319,21 @@ namespace Final_Project_C
         public static void AddHp(int hpAdd)
         {
             hp += hpAdd;
+
+            if (hp > 100)
+            {
+                hp = 100;
+            }
+        }
+
+        public static void AddScore(int scoreAdd)
+        {
+            score += scoreAdd;
+        }
+
+        public static void AddShield(int shieldAdd)
+        {
+            shield += shieldAdd;
         }
 
         public static bool IsDead()

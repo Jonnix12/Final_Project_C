@@ -8,7 +8,7 @@ namespace Final_Project_C
         static void Main(string[] args)
         {
             Player.PlayerStartUp();
-            SceneManager sceneManager = new SceneManager(3,3);
+            MainMenu mainMenu = new MainMenu();
         }
 
     }

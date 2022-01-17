@@ -9,7 +9,7 @@ namespace Final_Project_C
     class Combat
     {
         Enemy enemy;
-
+        int cont = 0;
 
         public Combat()
         {
@@ -22,8 +22,7 @@ namespace Final_Project_C
             Console.Clear();
             Console.WriteLine("A Battle as began!\n");
             Console.WriteLine("You encountered a {0} {1} named {2}", enemy.title, enemy.character, enemy.name + "\n");
-            Console.Write("Player Stats:\n" + "HP: " + Player.hp + "\nmore stats\n\n");
-            Console.Write("Enemy Stats:\n" + "HP: " + enemy.hp + "\nMore stats\n\n");
+            CombatScreenPrint();
         }
 
 
@@ -42,6 +41,7 @@ namespace Final_Project_C
 
             Console.Clear();
             Console.WriteLine("\nYou {0} {1}", EndScreenText(), enemy.name);
+            Console.WriteLine($"You received {ScoreAdd()} Point");
             Console.WriteLine("\nPrees any key to Continue...");
             Console.ReadKey();
             MapLoader.MapUpDate();
@@ -70,9 +70,13 @@ namespace Final_Project_C
 
         void CombatScreenPrint()
         {
-            Console.Clear();
-            Console.Write("Player Stats:\n" + "HP: " + Player.hp + "\nmore stats\n\n");
-            Console.Write("Enemy Stats:\n" + "HP: " + enemy.hp + "\nMore stats\n\n");
+            if (cont > 0)
+            {
+                Console.Clear();
+            }
+            cont++;
+            Console.Write("Player Stats:\n" + "HP: " + Player.hp + "\nShield:" + Player.shield + "\n");
+            Console.Write("Enemy Stats:\n" + "HP: " + enemy.hp + "\nMore stats\n");
         }
 
         string EndScreenText()
@@ -82,6 +86,18 @@ namespace Final_Project_C
             Random rand = new Random();
 
             return text[rand.Next(0, text.Length)];
+        }
+
+        int ScoreAdd()
+        {
+            Random random = new Random();
+            int score = random.Next(10, 35);
+
+            Player.AddScore(score);
+
+            return score;
+
+
         }
     }
 }

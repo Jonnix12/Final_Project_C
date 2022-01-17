@@ -15,7 +15,7 @@ namespace Final_Project_C
         {
             MapLoader.MapStartUp(entryX, entryY);
             EnemyManager enemyManager = new EnemyManager();
-            enemyManager.EnemySpawn(5);
+            enemyManager.EnemySpawn(0);
             PickUpSpawn();
             MapLoader.MapUpDate();
             GameUpDate();
@@ -71,6 +71,7 @@ namespace Final_Project_C
 
             if (Player.Collider() == Strings.exit && EnemyManager.enemies.Count == 0)
             {
+                Shop.ShopMainMenu();
                 MoveToNextScene(Vector2.X, Vector2.Y);
             }
 
@@ -80,7 +81,7 @@ namespace Final_Project_C
         {
             Random random = new Random();
 
-            if (random.Next(0, 11) < 4)
+            if (random.Next(0, 11) < 6)
             {
                 PickUpManager.SpawnChast();
             }

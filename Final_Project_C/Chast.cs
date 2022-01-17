@@ -11,19 +11,21 @@ namespace Final_Project_C
        
         int X;
         int Y;
+        int scorePlus;
 
-        public Chast(string Ui,int amontOfCoins , bool PowerUp, int X, int Y)
+        public Chast(string Ui,int amontOfCoins , int X, int Y)
         {
             MapLoader.mapGride[X, Y] = Ui;
             this.X = X;
             this.Y = Y;
+            scorePlus = amontOfCoins;
 
         }
 
         public void activation()
         {
             MapLoader.mapGride[X, Y] = Strings.space;
-            Player.score += 10;
+            Player.AddScore(scorePlus);
         }
     }
 }

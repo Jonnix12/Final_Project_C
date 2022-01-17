@@ -9,7 +9,7 @@ namespace Final_Project_C
     static class MapLoader
     {
         public static string[,] mapGride = new string[40, 20];
-
+       
 
 
         public static void MapStartUp(int entryX, int entryY)
@@ -110,9 +110,8 @@ namespace Final_Project_C
                     }
 
 
-                    int[] doorChoose = new int[] { minX, maxX, minY, maxY };
-
                     invalidPoint:
+                    int[] doorChoose = new int[] { minX, maxX, minY, maxY };
                     int doorWall = random.Next(0, 4);
 
                     if (doorWall <= 1)
@@ -140,6 +139,8 @@ namespace Final_Project_C
                     }
 
                     isRoomBuild = true;
+
+                    PickUpManager.GetSpawnLocation(minX, maxX, minY, maxY);
                 }
             }
 
