@@ -14,6 +14,7 @@ namespace Final_Project_C
 
         public static void MapStartUp(int entryX, int entryY)
         {
+            Console.Clear();
             for (int Y = 0; Y < 20; Y++)
             {
                 for (int X = 0; X < 40; X++)
@@ -43,13 +44,14 @@ namespace Final_Project_C
 
             Vector2.X = 1;
             PlayerPosisonUpDate(Vector2.X, entryY);
+            MapPrint(mapGride);
         }
 
         public static void MapUpDate()
         {
-            Console.Clear();
+            //Console.Clear();
             PlayerPosisonUpDate(Vector2.X, Vector2.Y);
-            MapPrint(mapGride);
+            //MapPrint(mapGride);
         }
 
         static void RoomSetUp()
@@ -168,8 +170,14 @@ namespace Final_Project_C
             mapGride[Player.playerCurrentX, Player.playerCurrentY] = Strings.space;
             mapGride[x, y] = Strings.player;
 
+            Console.SetCursorPosition(Player.playerCurrentX, Player.playerCurrentY);
+            Console.Write(mapGride[Player.playerCurrentX, Player.playerCurrentY]);
+            Console.SetCursorPosition(x, y);
+            Console.Write(mapGride[x, y]);
+
             Player.playerCurrentY = y;
             Player.playerCurrentX = x;
+            Console.SetCursorPosition(0,0);
             Player.Collider();
 
         }
