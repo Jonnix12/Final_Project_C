@@ -13,6 +13,9 @@ namespace Final_Project_C
         int selectIndex = 0;
         bool isPuseMenu;
 
+        int cursorLeft;
+        int cursorTop;
+
         public MainMenu(bool isPuseMenu)
         {
             if (isPuseMenu)
@@ -162,12 +165,14 @@ namespace Final_Project_C
 
         int MenuInput(string[] menu)
         {
+            int temp = cursorTop;
             do
             {
                 KeyInfo = Console.ReadKey(true);
 
                 if (KeyInfo.Key == ConsoleKey.W)
                 {
+                    cursorTop--;
                     selectIndex--;
                     if (selectIndex == -1)
                     {
@@ -176,14 +181,15 @@ namespace Final_Project_C
                 }
                 else if (KeyInfo.Key == ConsoleKey.S)
                 {
+                    cursorTop++;
                     selectIndex++;
                     if (selectIndex == menu.Length)
                     {
                         selectIndex = 0;
                     }
                 }
-                Console.Clear();
-                MenuPrint(menu);
+                //Console.Clear();
+                MenuUpdate();
 
 
             } while (KeyInfo.Key != ConsoleKey.Enter);
@@ -208,6 +214,8 @@ namespace Final_Project_C
                         ░                       ░                                                             
 
 ");
+            cursorLeft = Console.GetCursorPosition().Left;
+            cursorTop = Console.GetCursorPosition().Top;
             for (int i = 0; i < menu.Length; i++)
             {
                 if (i == selectIndex)
@@ -220,6 +228,12 @@ namespace Final_Project_C
                 }
                 Console.WriteLine($"{select} {menu[i]}");
             }
+        }
+
+        void MenuUpdate(int nextPos , int prevPos)
+        {
+            Console.SetCursorPosition(cursorLeft, prevPos);
+            Console.Write(" ")
         }
 
 

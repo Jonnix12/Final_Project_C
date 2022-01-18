@@ -49,10 +49,11 @@ namespace Final_Project_C
 
         public static void MapUpDate()
         {
-            //Console.Clear();
+            Console.Clear();
             PlayerPosisonUpDate(Vector2.X, Vector2.Y);
-            //MapPrint(mapGride);
+            MapPrint(mapGride);
         }
+
 
         static void RoomSetUp()
         {
@@ -170,6 +171,9 @@ namespace Final_Project_C
             mapGride[Player.playerCurrentX, Player.playerCurrentY] = Strings.space;
             mapGride[x, y] = Strings.player;
 
+            int left = Console.GetCursorPosition().Left;
+            int top = Console.GetCursorPosition().Top;
+
             Console.SetCursorPosition(Player.playerCurrentX, Player.playerCurrentY);
             Console.Write(mapGride[Player.playerCurrentX, Player.playerCurrentY]);
             Console.SetCursorPosition(x, y);
@@ -177,9 +181,7 @@ namespace Final_Project_C
 
             Player.playerCurrentY = y;
             Player.playerCurrentX = x;
-            Console.SetCursorPosition(0,0);
-            Player.Collider();
-
+            Console.SetCursorPosition(left,top);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Final_Project_C
         {
             MapLoader.MapStartUp(entryX, entryY);
             EnemyManager enemyManager = new EnemyManager();
-            enemyManager.EnemySpawn(0);
+            enemyManager.EnemySpawn(2);
             PickUpSpawn();
             MapLoader.MapUpDate();
             GameUpDate();
@@ -25,7 +25,6 @@ namespace Final_Project_C
         {
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
             key = keyInfo.Key;
-            doUpDate = true;
         }
 
         void GameUpDate()
@@ -34,7 +33,7 @@ namespace Final_Project_C
             {
                 GetPlayerInput();
                 Player.Move(key);
-
+                MapLoader.PlayerPosisonUpDate(Vector2.X, Vector2.Y);
                 if (key == ConsoleKey.Escape)
                 {
                     MainMenu puseMenu = new MainMenu(true); 
@@ -56,21 +55,25 @@ namespace Final_Project_C
             if (Player.Collider() == Strings.enemy)
             {
                 Combat combat = new Combat();
+                doUpDate = true;
             }
 
             if (Player.Collider() == Strings.weaponUi)
             {
                 PickUpManager.weaponPickUp.activation();
+                doUpDate = true;
             }
 
             if (Player.Collider() == Strings.hpUi)
             {
                 PickUpManager.hpPickUp.activation();
+                doUpDate = true;
             }
 
             if (Player.Collider() == Strings.chastUi)
             {
                 PickUpManager.chastPickUp.activation();
+                doUpDate = true;
             }
 
             if (Player.Collider() == Strings.exit && EnemyManager.enemies.Count == 0)
