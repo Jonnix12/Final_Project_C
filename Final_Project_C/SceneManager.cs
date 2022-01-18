@@ -35,6 +35,10 @@ namespace Final_Project_C
                 GetPlayerInput();
                 Player.Move(key);
 
+                if (key == ConsoleKey.Escape)
+                {
+                    MainMenu puseMenu = new MainMenu(true); 
+                }
 
                 if (doUpDate)
                 {
@@ -91,7 +95,7 @@ namespace Final_Project_C
                 PickUpManager.SpawnHp();
             }
 
-            if (random.Next(0, 11) < 3)
+            if (random.Next(0, 11) < 2)
             {
                 PickUpManager.SpawnWeapon();
             }

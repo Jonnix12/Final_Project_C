@@ -8,7 +8,7 @@ namespace Final_Project_C
         static void Main(string[] args)
         {
             Player.PlayerStartUp();
-            MainMenu mainMenu = new MainMenu();
+            MainMenu mainMenu = new MainMenu(false);
         }
 
     }

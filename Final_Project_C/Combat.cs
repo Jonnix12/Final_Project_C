@@ -93,7 +93,7 @@ namespace Final_Project_C
             Random random = new Random();
             int score = random.Next(10, 35);
 
-            Player.AddScore(score);
+            Player.AddPoint(score);
 
             return score;
 

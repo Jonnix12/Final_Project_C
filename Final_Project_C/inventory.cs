@@ -38,7 +38,7 @@ namespace Final_Project_C
             if (!isFireBullIn)
             {
                 weapons.Add("firebull", new Weapon("Firebull", 10, 3, 4));
-
+                Console.WriteLine("Add Fire Bull");
                 isFireBullIn = true;
             }
         }

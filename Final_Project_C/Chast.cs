@@ -25,7 +25,7 @@ namespace Final_Project_C
         public void activation()
         {
             MapLoader.mapGride[X, Y] = Strings.space;
-            Player.AddScore(scorePlus);
+            Player.AddPoint(scorePlus);
         }
     }
 }

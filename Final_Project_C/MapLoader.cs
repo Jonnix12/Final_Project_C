@@ -158,7 +158,7 @@ namespace Final_Project_C
             }
             Console.WriteLine(Player.playerCurrentX + "," + Player.playerCurrentY);
             Console.WriteLine("HP:{0}", Player.hp);
-            Console.WriteLine("Score:{0}", Player.score);
+            Console.WriteLine("Score:{0}", Player.point);
 
         }
 

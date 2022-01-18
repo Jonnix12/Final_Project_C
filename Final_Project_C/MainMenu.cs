@@ -8,69 +8,193 @@ namespace Final_Project_C
 {
     class MainMenu
     {
-        string[] screenOptions = new string[] { "Play", "Options", "Tutorial", "Exit" };
         string select;
         ConsoleKeyInfo KeyInfo;
         int selectIndex = 0;
+        bool isPuseMenu;
 
-        public MainMenu()
+        public MainMenu(bool isPuseMenu)
         {
-            StartMenu();
+            if (isPuseMenu)
+            {
+                this.isPuseMenu = isPuseMenu;
+                PuseMenu();
+            }
+            else
+                StartMenu();
+
+        }
+
+        void PuseMenu()
+        {
+            selectIndex = 0;
+            bool inMenu = true;
+            string[] mainMenu = new string[] { "Resume", "Options", "Tutorial", "Exit" };
+            MenuPrint(mainMenu);
+
+            while (inMenu)
+            {
+                switch (MenuInput(mainMenu))
+                {
+                    case 0:
+                        inMenu = false;
+                        break;
+                    case 1:
+                        OptionsMenu();
+                        break;
+                    case 2:
+                        TutorialMenu();
+                        break;
+                    case 3:
+                        System.Environment.Exit(0);
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
         void StartMenu()
         {
-            PrintScreen();
+            selectIndex = 0;
+            bool inMenu = true;
+            string[] mainMenu = new string[] { "Play", "Options", "Tutorial", "Exit" };
+            MenuPrint(mainMenu);
 
+            while (inMenu)
+            {
+                switch (MenuInput(mainMenu))
+                {
+                    case 0:
+                        SceneManager sceneManager = new SceneManager(3, 3);
+                        break;
+                    case 1:
+                        OptionsMenu();
+                        break;
+                    case 2:
+                        TutorialMenu();
+                        break;
+                    case 3:
+                        System.Environment.Exit(0);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        void OptionsMenu()
+        {
+            selectIndex = 0;
+            bool inMenu = true;
+            string[] optionsMenu = new string[] { "Change color", "Change difficulty", "Back" };
+            MenuPrint(optionsMenu);
+
+            while (inMenu)
+            {
+                switch (MenuInput(optionsMenu))
+                {
+                    case 0:
+                        ColorChangeMenu();
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        if (isPuseMenu)
+                        {
+                            inMenu = false;
+                            PuseMenu();
+                        }
+                        else
+                        {
+                            inMenu = false;
+                            StartMenu();
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        void TutorialMenu()
+        {
+            MapLoader.MapStartUp(3, 3);
+            MapLoader.MapUpDate();
+        }
+
+        void ColorChangeMenu()
+        {
+            selectIndex = 0;
+            bool inMenu = true;
+            string[] ColorMenu = new string[] { "Red", "Blue", "Yellow", "Reset", "Back" };
+            MenuPrint(ColorMenu);
+
+            while (inMenu)
+            {
+                switch (MenuInput(ColorMenu))
+                {
+                    case 0:
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        MenuPrint(ColorMenu);
+                        break;
+                    case 1:
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        MenuPrint(ColorMenu);
+                        break;
+                    case 2:
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        MenuPrint(ColorMenu);
+                        break;
+                    case 3:
+                        Console.ResetColor();
+                        MenuPrint(ColorMenu);
+                        break;
+                    case 4:
+                        inMenu = false;
+                        OptionsMenu();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        int MenuInput(string[] menu)
+        {
             do
             {
                 KeyInfo = Console.ReadKey(true);
 
-                if (KeyInfo.Key == ConsoleKey.UpArrow)
+                if (KeyInfo.Key == ConsoleKey.W)
                 {
                     selectIndex--;
                     if (selectIndex == -1)
                     {
-                        selectIndex = screenOptions.Length - 1;
+                        selectIndex = menu.Length - 1;
                     }
                 }
-                else if (KeyInfo.Key == ConsoleKey.DownArrow)
+                else if (KeyInfo.Key == ConsoleKey.S)
                 {
                     selectIndex++;
-                    if (selectIndex == screenOptions.Length )
+                    if (selectIndex == menu.Length)
                     {
                         selectIndex = 0;
                     }
                 }
                 Console.Clear();
-                PrintScreen();
+                MenuPrint(menu);
 
 
             } while (KeyInfo.Key != ConsoleKey.Enter);
 
-            if (selectIndex == 0)
-            {
-                SceneManager sceneManager = new SceneManager(3, 3);
-            }
-            else if (selectIndex == 1)
-            {
-
-            }
-            else if (selectIndex == 2)
-            {
-
-            }
-            else if (selectIndex == 3)
-            {
-                System.Environment.Exit(0);
-            }
-
-
+            return selectIndex;
 
         }
 
-        void PrintScreen()
+        void MenuPrint(string[] menu)
         {
+            Console.Clear();
 
             Console.WriteLine(@" ██▀███   ▒█████   ▄▄▄▄    ▄▄▄       ██▓       ▓█████▄  █    ██  ███▄    █   ▄████ ▓█████  ▒█████   ███▄    █ 
 ▓██ ▒ ██▒▒██▒  ██▒▓█████▄ ▒████▄    ▓██▒       ▒██▀ ██▌ ██  ▓██▒ ██ ▀█   █  ██▒ ▀█▒▓█   ▀ ▒██▒  ██▒ ██ ▀█   █ 
@@ -84,7 +208,7 @@ namespace Final_Project_C
                         ░                       ░                                                             
 
 ");
-            for (int i = 0; i < screenOptions.Length; i++)
+            for (int i = 0; i < menu.Length; i++)
             {
                 if (i == selectIndex)
                 {
@@ -94,8 +218,10 @@ namespace Final_Project_C
                 {
                     select = " ";
                 }
-                Console.WriteLine($"{select} {screenOptions[i]}");
+                Console.WriteLine($"{select} {menu[i]}");
             }
         }
+
+
     }
 }

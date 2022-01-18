@@ -9,10 +9,11 @@ namespace Final_Project_C
     static class Player
     {
         public static float hp = 100;
+        static float maxHp = 100;
 
         public static float shield = 25;
 
-        public static int score = 0;
+        public static int point = 50;
 
         public static int playerCurrentY = Vector2.Y;
         public static int playerCurrentX = Vector2.X;
@@ -320,20 +321,38 @@ namespace Final_Project_C
         {
             hp += hpAdd;
 
-            if (hp > 100)
+            if (hp > maxHp)
             {
-                hp = 100;
+                hp = maxHp;
             }
         }
 
-        public static void AddScore(int scoreAdd)
+        public static void AddMaxHp(int amontOfHp)
         {
-            score += scoreAdd;
+            maxHp += amontOfHp;
+        }
+
+        public static void AddPoint(int scoreAdd)
+        {
+            point += scoreAdd;
         }
 
         public static void AddShield(int shieldAdd)
         {
             shield += shieldAdd;
+        }
+
+        public static bool RemovePoints(int amontOfPoints)
+        {
+            if ((point - amontOfPoints) > 0)
+            {
+                point -= amontOfPoints;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public static bool IsDead()
