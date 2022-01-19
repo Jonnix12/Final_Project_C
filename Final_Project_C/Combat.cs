@@ -22,6 +22,7 @@ namespace Final_Project_C
             Console.Clear();
             Console.WriteLine("A Battle as began!\n");
             Console.WriteLine("You encountered a {0} {1} named {2}", enemy.title, enemy.character, enemy.name + "\n");
+            Console.WriteLine("Actions:\n1.Attack.\n2.Defense(raises the shield, adds some stamina).\n3.Life potion(adds 20 life points).\n4.Stamina potion(adds 40 stamina).\n");
             CombatScreenPrint();
         }
 
@@ -30,11 +31,10 @@ namespace Final_Project_C
         {
             while (!Player.IsDead() && !enemy.IsDead())
             {
-                Console.WriteLine("Your turn...");
                 PlayerTurn();
-                Console.WriteLine("Enemy turn...\n");
+                Console.WriteLine("Enemy turn...");
                 EnemyTurn();
-                Console.WriteLine("\nPrees any key to Continue...");
+                Console.WriteLine("Prees any key to Continue...");
                 Console.ReadKey();
                 CombatScreenPrint();
             }
@@ -49,7 +49,41 @@ namespace Final_Project_C
 
         void PlayerTurn()
         {
-            Player.Attack(enemy);
+            bool isAction = false;
+
+            ConsoleKeyInfo keyInfo;
+
+            while (!isAction)
+            {
+                keyInfo = Console.ReadKey(true);
+                switch (keyInfo.Key)
+                {
+                    case ConsoleKey.D1:
+                        Player.Attack(enemy);
+                        isAction = true;
+                        break;
+                    case ConsoleKey.D2:
+                        Player.Defense();
+                        isAction = true;
+                        break;
+                    case ConsoleKey.D3:
+                        Player.Heal();
+                        isAction = true;
+                        break;
+                    case ConsoleKey.D4:
+                        Player.StaminaUp();
+                        isAction = true;
+                        break;
+                    case ConsoleKey.Escape:;
+                        MainMenu menu = new MainMenu(true);
+                        Console.Clear();
+                        CombatScreenPrint();
+                        break;
+                    default:
+                        Console.WriteLine("Invald action try agine...");
+                        break;
+                }
+            }
         }
 
         void EnemyTurn()
@@ -75,8 +109,9 @@ namespace Final_Project_C
                 Console.Clear();
             }
             cont++;
-            Console.Write("Player Stats:\n" + "HP: " + Player.hp + "\nShield:" + Player.shield + "\n");
-            Console.Write("Enemy Stats:\n" + "HP: " + enemy.hp + "\nMore stats\n");
+            Console.WriteLine("Choose your ACTION:\n1.Attack\n2.Defense\n3.Life potion\n4.Stamina potion\n");
+            Console.Write("Player stats:\nHP: {0}\nStamina: {1}\nShield: {2}\nHP potion: {3}\nStamina potion: {4}\n\n",Player.hp,Player.stamina,Player.shield,Player.healPotion,Player.staminaPotion);
+            Console.Write("Enemy Stats:\n" + "HP: " + enemy.hp + "\n\n");
         }
 
         string EndScreenText()

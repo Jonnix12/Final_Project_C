@@ -14,7 +14,6 @@ namespace Final_Project_C
 
         public static void MapStartUp(int entryX, int entryY)
         {
-            Console.Clear();
             for (int Y = 0; Y < 20; Y++)
             {
                 for (int X = 0; X < 40; X++)
@@ -40,8 +39,6 @@ namespace Final_Project_C
             RoomSetUp();
             RoomSetUp();
             
-
-
             Vector2.X = 1;
             PlayerPosisonUpDate(Vector2.X, entryY);
             MapPrint(mapGride);
@@ -71,10 +68,10 @@ namespace Final_Project_C
             {
                 bool buildRoom = true;
 
-                minY = random.Next(1, 10);
+                minY = random.Next(2, 10);
                 maxY = random.Next(minY + 4, minY + 8);
 
-                minX = random.Next(1, 30);
+                minX = random.Next(2, 30);
                 maxX = random.Next(minX + 4, minX + 8);
 
                 for (int X = minX; X < maxX; X++)

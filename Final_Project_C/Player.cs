@@ -8,20 +8,20 @@ namespace Final_Project_C
 {
     static class Player
     {
+        public static float shield = 25;
         public static float hp = 100;
         static float maxHp = 100;
-
-        public static float shield = 25;
+        public static float stamina;
 
         public static int point = 50;
-
         public static int playerCurrentY = Vector2.Y;
         public static int playerCurrentX = Vector2.X;
-
         public static int enemyPosX;
         public static int enemyPosY;
+        public static int healPotion, staminaPotion;
 
         public static inventory inventory;
+
 
         public static void PlayerStartUp()
         {
@@ -105,7 +105,8 @@ namespace Final_Project_C
                 Console.WriteLine(@"Choose Weapon:
 1.Sword
 2.Axe
-3.Fire Bull");
+3.Fire Bull
+");
 
                 switch (Console.ReadKey(true).Key)
                 {
@@ -141,13 +142,13 @@ namespace Final_Project_C
 
                         if (!inventory.weapons.ContainsKey("axe"))
                         {
-                            Console.WriteLine("No Axe in inventory");
+                            Console.WriteLine("No Axe in inventory\n");
                             break;
                         }
 
                         Console.WriteLine(@"What attack do you want to do?
 1.Short Attack
-2. Long Attack");
+2. Long Attack\n");
 
                         switch (Console.ReadKey(true).Key)
                         {
@@ -195,6 +196,57 @@ namespace Final_Project_C
                         break;
                 }
             }
+        }
+
+        public static void Heal() //שיקוי חיים מוסיף חיים
+        {
+            if (healPotion > 0)
+            {
+                if (hp < maxHp)
+                {
+                    hp += 20;
+                }
+                if (hp > maxHp)
+                {
+                    hp = maxHp;
+                }
+                healPotion--;
+            }
+
+            else
+            {
+                Console.WriteLine("Not enough health potion");
+            }
+
+        }
+        public static void StaminaUp() //שיקוי סטמינה מוסיף סטימנה
+        {
+            if (staminaPotion > 0)
+            {
+                stamina += 40;
+                staminaPotion--;
+            }
+            else
+            {
+                Console.WriteLine("Not enough stamina potion");
+            }
+
+        }
+
+        public static void Defense() //מעלה את המגן וקצת סטמינה
+        {
+            stamina += 10;
+            if (!(shield <= 0) && shield <= 50)
+            {
+
+                if (shield < 10)
+                {
+                    shield += 5;
+                }
+                shield *= 1.15f;
+
+            }
+            
         }
 
 

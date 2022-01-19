@@ -8,12 +8,12 @@ namespace Final_Project_C
 {
     class MainMenu
     {
-        string select;
         ConsoleKeyInfo KeyInfo;
         int selectIndex = 0;
         bool isPuseMenu;
 
-        int cursorLeft;
+        int maxIndexForPointer;
+        int originalCursorPos;
         int cursorTop;
 
         public MainMenu(bool isPuseMenu)
@@ -30,7 +30,7 @@ namespace Final_Project_C
 
         void PuseMenu()
         {
-            selectIndex = 0;
+            
             bool inMenu = true;
             string[] mainMenu = new string[] { "Resume", "Options", "Tutorial", "Exit" };
             MenuPrint(mainMenu);
@@ -43,9 +43,11 @@ namespace Final_Project_C
                         inMenu = false;
                         break;
                     case 1:
+                        inMenu = false;
                         OptionsMenu();
                         break;
                     case 2:
+                        inMenu = false;
                         TutorialMenu();
                         break;
                     case 3:
@@ -59,7 +61,7 @@ namespace Final_Project_C
 
         void StartMenu()
         {
-            selectIndex = 0;
+            
             bool inMenu = true;
             string[] mainMenu = new string[] { "Play", "Options", "Tutorial", "Exit" };
             MenuPrint(mainMenu);
@@ -88,7 +90,7 @@ namespace Final_Project_C
 
         void OptionsMenu()
         {
-            selectIndex = 0;
+           
             bool inMenu = true;
             string[] optionsMenu = new string[] { "Change color", "Change difficulty", "Back" };
             MenuPrint(optionsMenu);
@@ -98,9 +100,12 @@ namespace Final_Project_C
                 switch (MenuInput(optionsMenu))
                 {
                     case 0:
+                        inMenu = false;
                         ColorChangeMenu();
                         break;
                     case 1:
+                        inMenu = false;
+                        ChangeDifficulty();
                         break;
                     case 2:
                         if (isPuseMenu)
@@ -122,13 +127,39 @@ namespace Final_Project_C
 
         void TutorialMenu()
         {
-            MapLoader.MapStartUp(3, 3);
-            MapLoader.MapUpDate();
+            Console.Clear();
+            Console.WriteLine(@" ██▀███   ▒█████   ▄▄▄▄    ▄▄▄       ██▓       ▓█████▄  █    ██  ███▄    █   ▄████ ▓█████  ▒█████   ███▄    █ 
+▓██ ▒ ██▒▒██▒  ██▒▓█████▄ ▒████▄    ▓██▒       ▒██▀ ██▌ ██  ▓██▒ ██ ▀█   █  ██▒ ▀█▒▓█   ▀ ▒██▒  ██▒ ██ ▀█   █ 
+▓██ ░▄█ ▒▒██░  ██▒▒██▒ ▄██▒██  ▀█▄  ▒██░       ░██   █▌▓██  ▒██░▓██  ▀█ ██▒▒██░▄▄▄░▒███   ▒██░  ██▒▓██  ▀█ ██▒
+▒██▀▀█▄  ▒██   ██░▒██░█▀  ░██▄▄▄▄██ ▒██░       ░▓█▄   ▌▓▓█  ░██░▓██▒  ▐▌██▒░▓█  ██▓▒▓█  ▄ ▒██   ██░▓██▒  ▐▌██▒
+░██▓ ▒██▒░ ████▓▒░░▓█  ▀█▓ ▓█   ▓██▒░██████▒   ░▒████▓ ▒▒█████▓ ▒██░   ▓██░░▒▓███▀▒░▒████▒░ ████▓▒░▒██░   ▓██░
+░ ▒▓ ░▒▓░░ ▒░▒░▒░ ░▒▓███▀▒ ▒▒   ▓▒█░░ ▒░▓  ░    ▒▒▓  ▒ ░▒▓▒ ▒ ▒ ░ ▒░   ▒ ▒  ░▒   ▒ ░░ ▒░ ░░ ▒░▒░▒░ ░ ▒░   ▒ ▒ 
+  ░▒ ░ ▒░  ░ ▒ ▒░ ▒░▒   ░   ▒   ▒▒ ░░ ░ ▒  ░    ░ ▒  ▒ ░░▒░ ░ ░ ░ ░░   ░ ▒░  ░   ░  ░ ░  ░  ░ ▒ ▒░ ░ ░░   ░ ▒░
+  ░░   ░ ░ ░ ░ ▒   ░    ░   ░   ▒     ░ ░       ░ ░  ░  ░░░ ░ ░    ░   ░ ░ ░ ░   ░    ░   ░ ░ ░ ▒     ░   ░ ░ 
+   ░         ░ ░   ░            ░  ░    ░  ░      ░       ░              ░       ░    ░  ░    ░ ░           ░ 
+                        ░                       ░                                                             
+
+");
+            Console.WriteLine("Kill all enemies to advance to the next level\n");
+            Console.WriteLine("Player: " + Strings.player);
+            Console.WriteLine("Enemy: " + Strings.enemy);
+            Console.WriteLine("Chast: " + Strings.chastUi);
+            Console.WriteLine("Hp pick up: " + Strings.hpUi);
+            Console.WriteLine("Weapon: " + Strings.weaponUi);
+            Console.WriteLine("Exit: " + Strings.exit);
+            Console.WriteLine("\nPress any key to continue...");
+            Console.ReadKey();
+            if (isPuseMenu)
+            {
+                PuseMenu();
+            }
+            else
+                StartMenu();
         }
 
         void ColorChangeMenu()
         {
-            selectIndex = 0;
+            
             bool inMenu = true;
             string[] ColorMenu = new string[] { "Red", "Blue", "Yellow", "Reset", "Back" };
             MenuPrint(ColorMenu);
@@ -163,9 +194,65 @@ namespace Final_Project_C
             }
         }
 
+        void ChangeDifficulty()
+        {
+            
+            bool inMenu = true;
+            string[] difficultyMenu = new string[] { "Easy", "Medium", "Hard", "Do not come crying to me", "Back" };
+            MenuPrint(difficultyMenu);
+
+            while (inMenu)
+            {
+                switch (MenuInput(difficultyMenu))
+                {
+                    case 0:
+                        SceneManager.SetDiifficulty(1, false);
+                        MenuPrint(difficultyMenu);
+                        Log("Diffiulty set to : Easy");
+                        //Console.WriteLine("Change We were updated on the loading of the next scene");
+                        break;
+                    case 1:
+                        SceneManager.SetDiifficulty(2, false);
+                        MenuPrint(difficultyMenu);
+                        Log("Diffiulty set to : Medium");
+                        //Console.WriteLine("Change We were updated on the loading of the next scene");
+                        break;
+                    case 2:
+                        SceneManager.SetDiifficulty(3, false);
+                        MenuPrint(difficultyMenu);
+                        Log("Diffiulty set to : Hard");
+                        //Log("Change We were updated on the loading of the next scene");
+                        break;
+                    case 3:
+                        SceneManager.SetDiifficulty(4, false);
+                        MenuPrint(difficultyMenu);
+                        Log("Diffiulty set to : Do not come crying to me");
+                        //Console.WriteLine("Change We were updated on the loading of the next scene");
+                        break;
+                    case 4:
+                        inMenu = false;
+                        OptionsMenu();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        void Log(string message)
+        {
+            Console.SetCursorPosition(0, maxIndexForPointer + 2);
+            Console.WriteLine(message);
+            Console.SetCursorPosition(0, originalCursorPos);
+        }
+
         int MenuInput(string[] menu)
         {
-            int temp = cursorTop;
+            selectIndex = 0;
+            maxIndexForPointer = cursorTop + menu.Length -1;
+            originalCursorPos = cursorTop;
+            Console.SetCursorPosition(0, originalCursorPos);
+
             do
             {
                 KeyInfo = Console.ReadKey(true);
@@ -174,8 +261,9 @@ namespace Final_Project_C
                 {
                     cursorTop--;
                     selectIndex--;
-                    if (selectIndex == -1)
+                    if (selectIndex == -1 || cursorTop < originalCursorPos)
                     {
+                        cursorTop = maxIndexForPointer;
                         selectIndex = menu.Length - 1;
                     }
                 }
@@ -183,17 +271,18 @@ namespace Final_Project_C
                 {
                     cursorTop++;
                     selectIndex++;
-                    if (selectIndex == menu.Length)
+                    if (selectIndex == menu.Length || cursorTop > maxIndexForPointer)
                     {
+                        cursorTop = originalCursorPos;
                         selectIndex = 0;
                     }
                 }
-                //Console.Clear();
-                MenuUpdate();
+                MenuUpdate(cursorTop);
 
 
             } while (KeyInfo.Key != ConsoleKey.Enter);
 
+            Console.SetCursorPosition(0, originalCursorPos);
             return selectIndex;
 
         }
@@ -214,26 +303,22 @@ namespace Final_Project_C
                         ░                       ░                                                             
 
 ");
-            cursorLeft = Console.GetCursorPosition().Left;
+            
             cursorTop = Console.GetCursorPosition().Top;
+
             for (int i = 0; i < menu.Length; i++)
             {
-                if (i == selectIndex)
-                {
-                    select = ">";
-                }
-                else
-                {
-                    select = " ";
-                }
-                Console.WriteLine($"{select} {menu[i]}");
+                Console.WriteLine($"  {menu[i]}");
             }
+            MenuUpdate(cursorTop);
         }
 
-        void MenuUpdate(int nextPos , int prevPos)
+        void MenuUpdate(int nextPos)
         {
-            Console.SetCursorPosition(cursorLeft, prevPos);
-            Console.Write(" ")
+            Console.SetCursorPosition(0, Console.GetCursorPosition().Top);
+            Console.Write(" ");
+            Console.SetCursorPosition(0, nextPos);
+            Console.Write(">");
         }
 
 

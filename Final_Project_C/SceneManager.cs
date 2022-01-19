@@ -10,15 +10,56 @@ namespace Final_Project_C
     {
         ConsoleKey key;
         bool doUpDate = false;
+        static int numOfEnemy;
+        static int enemyDifficulty;
+        static bool randDifficulty;
 
         public SceneManager(int entryX, int entryY)
         {
             MapLoader.MapStartUp(entryX, entryY);
             EnemyManager enemyManager = new EnemyManager();
-            enemyManager.EnemySpawn(2);
+            enemyManager.EnemySpawn(numOfEnemy, enemyDifficulty, randDifficulty);
             PickUpSpawn();
             MapLoader.MapUpDate();
             GameUpDate();
+        }
+
+        public static void SetDiifficulty(int difficulty,bool setRandDifficulty)
+        {
+            switch (difficulty)
+            {
+                case 1:
+                    numOfEnemy = 2;
+                    enemyDifficulty = 0;
+                    if (randDifficulty)
+                    {
+                        randDifficulty = setRandDifficulty;
+                    }
+                    break;
+                case 2:
+                    numOfEnemy = 4;
+                    enemyDifficulty = 1;
+                    if (randDifficulty)
+                    {
+                        randDifficulty = setRandDifficulty;
+                    }
+                    break;
+                case 3:
+                    numOfEnemy = 6;
+                    enemyDifficulty = 2;
+                    if (randDifficulty)
+                    {
+                        randDifficulty = setRandDifficulty;
+                    }
+                    break;
+                case 4:
+                    numOfEnemy = 8;
+                    enemyDifficulty = 2;
+                    randDifficulty = false;
+                    break;
+                default:
+                    break;
+            }
         }
 
         void GetPlayerInput()
@@ -36,7 +77,8 @@ namespace Final_Project_C
                 MapLoader.PlayerPosisonUpDate(Vector2.X, Vector2.Y);
                 if (key == ConsoleKey.Escape)
                 {
-                    MainMenu puseMenu = new MainMenu(true); 
+                    MainMenu puseMenu = new MainMenu(true);
+                    MapLoader.MapUpDate();
                 }
 
                 if (doUpDate)
@@ -78,7 +120,7 @@ namespace Final_Project_C
 
             if (Player.Collider() == Strings.exit && EnemyManager.enemies.Count == 0)
             {
-                Shop.ShopMainMenu();
+                Shop shop = new Shop();
                 MoveToNextScene(Vector2.X, Vector2.Y);
             }
 
@@ -110,6 +152,6 @@ namespace Final_Project_C
             SceneManager newScene = new SceneManager(entryX, entryY);
         }
 
-        
+
     }
 }

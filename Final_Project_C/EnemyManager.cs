@@ -15,7 +15,7 @@ namespace Final_Project_C
 
         public static List<Enemy> enemies = new List<Enemy>();
 
-        public void EnemySpawn(int numOfEnemy)
+        public void EnemySpawn(int numOfEnemy , int difficulty , bool randDifficulty)
         {
             Random random = new Random();
 
@@ -29,7 +29,7 @@ namespace Final_Project_C
                 if (MapLoader.mapGride[spawnX, spawnY] != Strings.space)
                     goto invalidPoint;
 
-                enemies.Add(new Enemy(Strings.enemy, spawnX, spawnY));
+                enemies.Add(new Enemy(Strings.enemy, spawnX, spawnY, difficulty, randDifficulty));
 
 
             }

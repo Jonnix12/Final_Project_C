@@ -8,14 +8,23 @@ namespace Final_Project_C
 {
     class Shop
     {
-        static string select;
-        static ConsoleKeyInfo KeyInfo;
-        static int selectIndex = 0;
 
-        public static void ShopMainMenu()
+        ConsoleKeyInfo KeyInfo;
+        int selectIndex = 0;
+
+        int maxIndexForPointer;
+        int originalCursorPos;
+        int cursorTop;
+
+        public Shop()
+        {
+            ShopMainMenu();
+        }
+
+        public void ShopMainMenu()
         {
             selectIndex = 0;
-            string[] screenOptions = new string[] { "Buy shield", "Buy Weapon", "Buy Hp", "Exit" };
+            string[] screenOptions = new string[] { "Buy shield", "Buy Weapon", "Buy Hp", "Continue" };
             Console.Clear();
             MenuPrint(screenOptions);
 
@@ -38,36 +47,46 @@ namespace Final_Project_C
 
         }
 
-        static void MenuPrint(string[] menu)
+        void MenuPrint(string[] menu)
         {
             Console.Clear();
-            Console.WriteLine(@" _       __     __                             __           __  __                 __              
-| |     / /__  / /________  ____ ___  ___     / /_____     / /_/ /_  ___     _____/ /_  ____  ____ 
-| | /| / / _ \/ / ___/ __ \/ __ `__ \/ _ \   / __/ __ \   / __/ __ \/ _ \   / ___/ __ \/ __ \/ __ \
-| |/ |/ /  __/ / /__/ /_/ / / / / / /  __/  / /_/ /_/ /  / /_/ / / /  __/  (__  ) / / / /_/ / /_/ /
-|__/|__/\___/_/\___/\____/_/ /_/ /_/\___/   \__/\____/   \__/_/ /_/\___/  /____/_/ /_/\____/ .___/ 
-                                                                                          /_/      
+
+            Console.WriteLine(@" ██▀███   ▒█████   ▄▄▄▄    ▄▄▄       ██▓       ▓█████▄  █    ██  ███▄    █   ▄████ ▓█████  ▒█████   ███▄    █ 
+▓██ ▒ ██▒▒██▒  ██▒▓█████▄ ▒████▄    ▓██▒       ▒██▀ ██▌ ██  ▓██▒ ██ ▀█   █  ██▒ ▀█▒▓█   ▀ ▒██▒  ██▒ ██ ▀█   █ 
+▓██ ░▄█ ▒▒██░  ██▒▒██▒ ▄██▒██  ▀█▄  ▒██░       ░██   █▌▓██  ▒██░▓██  ▀█ ██▒▒██░▄▄▄░▒███   ▒██░  ██▒▓██  ▀█ ██▒
+▒██▀▀█▄  ▒██   ██░▒██░█▀  ░██▄▄▄▄██ ▒██░       ░▓█▄   ▌▓▓█  ░██░▓██▒  ▐▌██▒░▓█  ██▓▒▓█  ▄ ▒██   ██░▓██▒  ▐▌██▒
+░██▓ ▒██▒░ ████▓▒░░▓█  ▀█▓ ▓█   ▓██▒░██████▒   ░▒████▓ ▒▒█████▓ ▒██░   ▓██░░▒▓███▀▒░▒████▒░ ████▓▒░▒██░   ▓██░
+░ ▒▓ ░▒▓░░ ▒░▒░▒░ ░▒▓███▀▒ ▒▒   ▓▒█░░ ▒░▓  ░    ▒▒▓  ▒ ░▒▓▒ ▒ ▒ ░ ▒░   ▒ ▒  ░▒   ▒ ░░ ▒░ ░░ ▒░▒░▒░ ░ ▒░   ▒ ▒ 
+  ░▒ ░ ▒░  ░ ▒ ▒░ ▒░▒   ░   ▒   ▒▒ ░░ ░ ▒  ░    ░ ▒  ▒ ░░▒░ ░ ░ ░ ░░   ░ ▒░  ░   ░  ░ ░  ░  ░ ▒ ▒░ ░ ░░   ░ ▒░
+  ░░   ░ ░ ░ ░ ▒   ░    ░   ░   ▒     ░ ░       ░ ░  ░  ░░░ ░ ░    ░   ░ ░ ░ ░   ░    ░   ░ ░ ░ ▒     ░   ░ ░ 
+   ░         ░ ░   ░            ░  ░    ░  ░      ░       ░              ░       ░    ░  ░    ░ ░           ░ 
+                        ░                       ░                                                             
 
 ");
-            Console.WriteLine($"Points: {Player.point}\n");
+            Console.WriteLine($"Points: {Player.point}");
+            cursorTop = Console.GetCursorPosition().Top;
+
             for (int i = 0; i < menu.Length; i++)
             {
-                if (i == selectIndex)
-                {
-                    select = ">";
-                }
-                else
-                {
-                    select = " ";
-                }
-                Console.WriteLine($"{select} {menu[i]}");
+                Console.WriteLine($"  {menu[i]}");
             }
-
+            MenuUpdate(cursorTop);
         }
 
-        static int MenuInput(string[] menu)
+        void MenuUpdate(int nextPos)
         {
-            
+            Console.SetCursorPosition(0, Console.GetCursorPosition().Top);
+            Console.Write(" ");
+            Console.SetCursorPosition(0, nextPos);
+            Console.Write(">");
+        }
+
+        int MenuInput(string[] menu)
+        {
+            selectIndex = 0;
+            maxIndexForPointer = cursorTop + menu.Length - 1;
+            originalCursorPos = cursorTop;
+            Console.SetCursorPosition(0, originalCursorPos);
 
             do
             {
@@ -75,31 +94,42 @@ namespace Final_Project_C
 
                 if (KeyInfo.Key == ConsoleKey.W)
                 {
+                    cursorTop--;
                     selectIndex--;
-                    if (selectIndex == -1)
+                    if (selectIndex == -1 || cursorTop < originalCursorPos)
                     {
+                        cursorTop = maxIndexForPointer;
                         selectIndex = menu.Length - 1;
                     }
                 }
                 else if (KeyInfo.Key == ConsoleKey.S)
                 {
+                    cursorTop++;
                     selectIndex++;
-                    if (selectIndex == menu.Length)
+                    if (selectIndex == menu.Length || cursorTop > maxIndexForPointer)
                     {
+                        cursorTop = originalCursorPos;
                         selectIndex = 0;
                     }
                 }
-                Console.Clear();
-                MenuPrint(menu);
+                MenuUpdate(cursorTop);
 
 
             } while (KeyInfo.Key != ConsoleKey.Enter);
 
+            Console.SetCursorPosition(0, originalCursorPos);
             return selectIndex;
 
         }
 
-        static void shieldMenu()
+        void Log(string message)
+        {
+            Console.SetCursorPosition(0, maxIndexForPointer + 2);
+            Console.WriteLine(message);
+            Console.SetCursorPosition(0, originalCursorPos);
+        }
+
+        void shieldMenu()
         {
             selectIndex = 0;
             bool inMenu = true;
@@ -116,40 +146,52 @@ namespace Final_Project_C
                         {
                             Player.AddShield(15);
                             MenuPrint(screenOptionsShield);
-                            Console.WriteLine("Add 15 shield");
+                            Log("Add 15 shield");
                         }
                         else
-                            Console.WriteLine("Not enough point");
+                        {
+                            MenuPrint(screenOptionsShield);
+                            Log("Not enough point");
+                        }
                         break;
                     case 1:
                         if (Player.RemovePoints(25))
                         {
                             Player.AddShield(20);
                             MenuPrint(screenOptionsShield);
-                            Console.WriteLine("Add 20 shield");
+                            Log("Add 20 shield");
                         }
                         else
-                            Console.WriteLine("Not enough point");
+                        {
+                            MenuPrint(screenOptionsShield);
+                            Log("Not enough point");
+                        }
                         break;
                     case 2:
                         if (Player.RemovePoints(30))
                         {
                             Player.AddShield(30);
                             MenuPrint(screenOptionsShield);
-                            Console.WriteLine("Add 30 shield");
+                            Log("Add 30 shield");
                         }
                         else
-                            Console.WriteLine("Not enough point");
+                        {
+                            MenuPrint(screenOptionsShield);
+                            Log("Not enough point");
+                        }
                         break;
                     case 3:
                         if (Player.RemovePoints(35))
                         {
                             Player.AddShield(45);
                             MenuPrint(screenOptionsShield);
-                            Console.WriteLine("Add 45 shield");
+                            Log("Add 45 shield");
                         }
                         else
-                            Console.WriteLine("Not enough point");
+                        {
+                            MenuPrint(screenOptionsShield);
+                            Log("Not enough point");
+                        }
                         break;
                     case 4:
                         inMenu = false;
@@ -163,7 +205,7 @@ namespace Final_Project_C
 
         }
 
-        static void WeaponMenu()
+        void WeaponMenu()
         {
             selectIndex = 0;
             bool inMenu = true;
@@ -179,13 +221,19 @@ namespace Final_Project_C
                         if (Player.RemovePoints(50))
                             Player.inventory.AddAxe();
                         else
-                            Console.WriteLine("Not enough point");
+                        {
+                            MenuPrint(screenOptionsWeapon);
+                            Log("Not enough point");
+                        }
                         break;
                     case 1:
                         if (Player.RemovePoints(70))
                             Player.inventory.AddFireBull();
                         else
-                            Console.WriteLine("Not enough point");
+                        {
+                            MenuPrint(screenOptionsWeapon);
+                            Log("Not enough point");
+                        }
                         break;
                     case 2:
                         inMenu = false;
@@ -197,12 +245,12 @@ namespace Final_Project_C
             }
         }
 
-        static void HpMenu()
+        void HpMenu()
         {
             selectIndex = 0;
             bool inMenu = true;
             Console.Clear();
-            string[] screenOptionsHp = new string[] { "Buy 15 HP = 5 Points", "Buy 20 HP = 10 Points", "Buy 30 HP = 15 Points", "Buy 45 HP = 20 Point","Increase the max HP by 10 = 20 Point" , "Increase the max HP by 15 = 30 Point", "Increase the max HP by 20 = 40 Point", "Back" };
+            string[] screenOptionsHp = new string[] { "Buy 15 HP = 5 Points", "Buy 20 HP = 10 Points", "Buy 30 HP = 15 Points", "Buy 45 HP = 20 Point", "Increase the max HP by 10 = 20 Point", "Increase the max HP by 15 = 30 Point", "Increase the max HP by 20 = 40 Point", "Back" };
             MenuPrint(screenOptionsHp);
 
             while (inMenu)
@@ -214,70 +262,91 @@ namespace Final_Project_C
                         {
                             Player.AddHp(15);
                             MenuPrint(screenOptionsHp);
-                            Console.WriteLine("Add 15 HP");
+                            Log("Add 15 HP");
                         }
                         else
-                            Console.WriteLine("Not enough point");
+                        {
+                            MenuPrint(screenOptionsHp);
+                            Log("Not enough point");
+                        }
                         break;
                     case 1:
                         if (Player.RemovePoints(10))
                         {
                             Player.AddHp(20);
                             MenuPrint(screenOptionsHp);
-                            Console.WriteLine("Add 20 HP");
+                            Log("Add 20 HP");
                         }
                         else
-                            Console.WriteLine("Not enough point");
+                        {
+                            MenuPrint(screenOptionsHp);
+                            Log("Not enough point");
+                        }
                         break;
                     case 2:
                         if (Player.RemovePoints(15))
                         {
                             Player.AddHp(30);
                             MenuPrint(screenOptionsHp);
-                            Console.WriteLine("Add 30 HP");
+                            Log("Add 30 HP");
                         }
                         else
-                            Console.WriteLine("Not enough point");
+                        {
+                            MenuPrint(screenOptionsHp);
+                            Log("Not enough point");
+                        }
                         break;
                     case 3:
                         if (Player.RemovePoints(20))
                         {
                             Player.AddHp(45);
                             MenuPrint(screenOptionsHp);
-                            Console.WriteLine("Add 45 HP");
+                            Log("Add 45 HP");
                         }
                         else
-                            Console.WriteLine("Not enough point");
+                        {
+                            MenuPrint(screenOptionsHp);
+                            Log("Not enough point");
+                        }
                         break;
                     case 4:
                         if (Player.RemovePoints(20))
                         {
                             Player.AddMaxHp(10);
                             MenuPrint(screenOptionsHp);
-                            Console.WriteLine("Add 10 to max HP");
+                            Log("Add 10 to max HP");
                         }
                         else
-                            Console.WriteLine("Not enough point");
+                        {
+                            MenuPrint(screenOptionsHp);
+                            Log("Not enough point");
+                        }
                         break;
                     case 5:
                         if (Player.RemovePoints(30))
                         {
                             Player.AddMaxHp(15);
                             MenuPrint(screenOptionsHp);
-                            Console.WriteLine("Add 15 to max HP");
+                            Log("Add 15 to max HP");
                         }
                         else
-                            Console.WriteLine("Not enough point");
+                        {
+                            MenuPrint(screenOptionsHp);
+                            Log("Not enough point");
+                        }
                         break;
                     case 6:
                         if (Player.RemovePoints(40))
                         {
                             Player.AddMaxHp(20);
                             MenuPrint(screenOptionsHp);
-                            Console.WriteLine("Add 20 to max HP");
+                            Log("Add 20 to max HP");
                         }
                         else
-                            Console.WriteLine("Not enough point");
+                        {
+                            MenuPrint(screenOptionsHp);
+                            Log("Not enough point");
+                        }
                         break;
                     case 7:
                         inMenu = false;

@@ -22,7 +22,7 @@ namespace Final_Project_C
 
 
 
-        public Enemy(string enemyUi, int X, int Y)
+        public Enemy(string enemyUi, int X, int Y, int difficulty)
         {
             MapLoader.mapGride[X, Y] = enemyUi;
             hp = 30;
@@ -31,9 +31,45 @@ namespace Final_Project_C
             posY = Y;
             RnadName();
 
+            if (true)
+            {
+
+            }
             Random random = new Random();
 
-            switch (random.Next(0, 3))
+            switch (difficulty)
+            {
+                case 0:
+                    precision = 50;
+                    break;
+                case 1:
+                    precision = 65;
+                    break;
+                case 2:
+                    precision = 75;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public Enemy(string enemyUi, int X, int Y, int difficulty, bool randDifficulty)
+        {
+
+            MapLoader.mapGride[X, Y] = enemyUi;
+            hp = 30;
+            attackDamage = 5;
+            posX = X;
+            posY = Y;
+            RnadName();
+
+            if (randDifficulty)
+            {
+                Random random = new Random();
+                difficulty = random.Next(0, 3);
+            }
+
+            switch (difficulty)
             {
                 case 0:
                     precision = 50;
