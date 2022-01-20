@@ -12,6 +12,8 @@ namespace Final_Project_C
         bool isAxeIn = false;
         bool isFireBullIn = false;
         public Dictionary<string, Weapon> weapons = new Dictionary<string, Weapon>();
+        public List<Potion> hpPotion = new List<Potion>();
+        public List<Potion> staminaPotion = new List<Potion>();
 
         public void AddSword()
         {
@@ -41,6 +43,16 @@ namespace Final_Project_C
                 Console.WriteLine("Add Fire Bull");
                 isFireBullIn = true;
             }
+        }
+
+        public void AddHpPotion(Potion potion)
+        {
+            hpPotion.Add(potion);
+        }
+
+        public void AddStaminaPotion(Potion potion)
+        {
+            staminaPotion.Add(potion);
         }
     }
 

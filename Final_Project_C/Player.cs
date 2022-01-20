@@ -148,7 +148,7 @@ namespace Final_Project_C
 
                         Console.WriteLine(@"What attack do you want to do?
 1.Short Attack
-2. Long Attack\n");
+2. Long Attack");
 
                         switch (Console.ReadKey(true).Key)
                         {
@@ -360,6 +360,11 @@ namespace Final_Project_C
                         if (coll == Strings.exit)
                         {
                             return Strings.exit;
+                        }
+
+                        if (coll == Strings.potion)
+                        {
+                            return Strings.potion;
                         }
                     }
 

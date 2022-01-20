@@ -21,6 +21,8 @@ namespace Final_Project_C
         public static WeaponPickUp weaponPickUp;
         public static HpPickUp hpPickUp;
         public static Chast chastPickUp;
+        public static Potion hpPotion;
+        public static Potion staminaPotion;
 
         public static void GetSpawnLocation(int minX, int maxX, int minY, int maxY)
         {
@@ -76,6 +78,19 @@ namespace Final_Project_C
 
             chastPickUp = new Chast(Strings.chastUi, ScorePlus, spawnX, spawnY);
 
+        }
+
+        public static void SpawnHpPotion()
+        {
+            SetSpawnLocation();
+            hpPotion = new Potion(Strings.potion, spawnX, spawnY, true);
+            Player.inventory.AddHpPotion(hpPotion);
+        }
+
+        public static void SpawnStaminaPotion()
+        {
+            SetSpawnLocation();
+            staminaPotion = new Potion(Strings.potion, spawnX, spawnY, false);
         }
     }
 }

@@ -94,31 +94,38 @@ namespace Final_Project_C
 
         void collideChack()
         {
-            if (Player.Collider() == Strings.enemy)
+            string temp = Player.Collider();
+
+            if (temp == Strings.enemy)
             {
                 Combat combat = new Combat();
                 doUpDate = true;
             }
 
-            if (Player.Collider() == Strings.weaponUi)
+            if (temp == Strings.weaponUi)
             {
                 PickUpManager.weaponPickUp.activation();
                 doUpDate = true;
             }
 
-            if (Player.Collider() == Strings.hpUi)
+            if (temp == Strings.hpUi)
             {
                 PickUpManager.hpPickUp.activation();
                 doUpDate = true;
             }
 
-            if (Player.Collider() == Strings.chastUi)
+            if (temp == Strings.chastUi)
             {
                 PickUpManager.chastPickUp.activation();
                 doUpDate = true;
             }
 
-            if (Player.Collider() == Strings.exit && EnemyManager.enemies.Count == 0)
+            if (temp == Strings.potion)
+            {
+                
+            }
+
+            if (temp == Strings.exit && EnemyManager.enemies.Count == 0)
             {
                 Shop shop = new Shop();
                 MoveToNextScene(Vector2.X, Vector2.Y);
@@ -143,6 +150,16 @@ namespace Final_Project_C
             if (random.Next(0, 11) < 2)
             {
                 PickUpManager.SpawnWeapon();
+            }
+
+            if (random.Next(0,11)< 7)
+            {
+                PickUpManager.SpawnHpPotion();
+            }
+
+            if (random.Next(0, 11) < 7)
+            {
+                PickUpManager.SpawnStaminaPotion();
             }
         }
 

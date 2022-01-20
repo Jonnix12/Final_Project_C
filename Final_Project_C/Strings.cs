@@ -19,5 +19,8 @@ namespace Final_Project_C
         public static string weaponUi = "*";
         public static string hpUi = "+";
         public static string chastUi = "⌂";
+        public static string potion = "&";
+
+        public static string[] stringArr = new string[] { roomEdgeSide, mapEdgeSide, mapEdgeTopAndBottom, player, enemy, exit, space, weaponUi, hpUi, potion, chastUi};
     }
 }
