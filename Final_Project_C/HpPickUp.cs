@@ -24,5 +24,10 @@ namespace Final_Project_C
             MapLoader.mapGride[X, Y] = Strings.space;
             Player.AddHp(hpAdd);
         }
+
+        public int HpPlus()
+        {
+            return hpAdd;
+        }
     }
 }

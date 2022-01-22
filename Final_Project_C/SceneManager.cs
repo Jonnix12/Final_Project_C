@@ -9,22 +9,29 @@ namespace Final_Project_C
     class SceneManager
     {
         ConsoleKey key;
-        bool doUpDate = false;
-        static int numOfEnemy;
-        static int enemyDifficulty;
-        static bool randDifficulty;
 
-        public SceneManager(int entryX, int entryY)
+        int NumOfRooms = 4;
+        static int numOfEnemy = 0;
+        static int enemyDifficulty = 1;
+        static bool randDifficulty = false;
+        public static int levelCount = 0;
+        PickUpManager pickUpManager;
+        MapLoader Map;
+
+        public SceneManager(int entryY)
         {
-            MapLoader.MapStartUp(entryX, entryY);
+            levelCount++;
+            Map = new MapLoader();
+            pickUpManager = new PickUpManager();
+            Map.MapStartUp(entryY , NumOfRooms,pickUpManager);
             EnemyManager enemyManager = new EnemyManager();
             enemyManager.EnemySpawn(numOfEnemy, enemyDifficulty, randDifficulty);
             PickUpSpawn();
-            MapLoader.MapUpDate();
+            Map.MapUpDate();
             GameUpDate();
         }
 
-        public static void SetDiifficulty(int difficulty,bool setRandDifficulty)
+        public static void SetDiifficulty(int difficulty, bool setRandDifficulty)
         {
             switch (difficulty)
             {
@@ -70,24 +77,28 @@ namespace Final_Project_C
 
         void GameUpDate()
         {
+            int cunt = 0;
+
             while (true)
             {
                 GetPlayerInput();
                 Player.Move(key);
-                MapLoader.PlayerPosisonUpDate(Vector2.X, Vector2.Y);
+                Map.PlayerPosisonUpDate(Vector2.X, Vector2.Y);
+
                 if (key == ConsoleKey.Escape)
                 {
                     MainMenu puseMenu = new MainMenu(true);
-                    MapLoader.MapUpDate();
+                    Map.MapUpDate();
                 }
 
-                if (doUpDate)
+                if (cunt > 50)
                 {
-                    MapLoader.MapUpDate();
-                    doUpDate = false;
+                    Map.MapUpDate();
+                    cunt = 0;
                 }
 
                 collideChack();
+                cunt++;
 
             }
         }
@@ -98,37 +109,42 @@ namespace Final_Project_C
 
             if (temp == Strings.enemy)
             {
-                Combat combat = new Combat();
-                doUpDate = true;
+                Combat combat = new Combat(Map);
+                Map.MapUpDate();
             }
 
             if (temp == Strings.weaponUi)
             {
-                PickUpManager.weaponPickUp.activation();
-                doUpDate = true;
+                pickUpManager.weaponPickUp.activation();
+                Map.MapUpDate();
+                Log("Pick up a Weapon");
             }
 
             if (temp == Strings.hpUi)
             {
-                PickUpManager.hpPickUp.activation();
-                doUpDate = true;
+                pickUpManager.hpPickUp.activation();
+                Map.MapUpDate();
+                Log("Pick up HP");
             }
 
             if (temp == Strings.chastUi)
             {
-                PickUpManager.chastPickUp.activation();
-                doUpDate = true;
+                pickUpManager.chastPickUp.activation();
+                Map.MapUpDate();
+                Log("Open a Chast");
             }
 
             if (temp == Strings.potion)
             {
-                
+                pickUpManager.potion.activationPickUp();
+                Map.MapUpDate();
+                Log("Add potion");
             }
 
             if (temp == Strings.exit && EnemyManager.enemies.Count == 0)
             {
                 Shop shop = new Shop();
-                MoveToNextScene(Vector2.X, Vector2.Y);
+                MoveToNextScene(Vector2.Y);
             }
 
         }
@@ -137,36 +153,37 @@ namespace Final_Project_C
         {
             Random random = new Random();
 
-            if (random.Next(0, 11) < 6)
-            {
-                PickUpManager.SpawnChast();
-            }
-
-            if (random.Next(0, 11) < 6)
-            {
-                PickUpManager.SpawnHp();
-            }
-
-            if (random.Next(0, 11) < 2)
-            {
-                PickUpManager.SpawnWeapon();
-            }
-
-            if (random.Next(0,11)< 7)
-            {
-                PickUpManager.SpawnHpPotion();
-            }
-
             if (random.Next(0, 11) < 7)
             {
-                PickUpManager.SpawnStaminaPotion();
+                pickUpManager.SpawnChast();
             }
+
+            if (random.Next(0, 11) < 6)
+            {
+                pickUpManager.SpawnHp();
+            }
+
+            if (random.Next(0, 11) < 1)
+            {
+                pickUpManager.SpawnWeapon();
+            }
+
+            if (random.Next(0, 11) < 9)
+            {
+                pickUpManager.SpawnPotion();
+            }
+
         }
 
-        void MoveToNextScene(int entryX, int entryY)
+        void MoveToNextScene(int entryY)
         {
             Console.Clear();
-            SceneManager newScene = new SceneManager(entryX, entryY);
+            SceneManager newScene = new SceneManager(entryY);
+        }
+
+        void Log(string Log)
+        {
+            Console.WriteLine(Log);
         }
 
 

@@ -10,9 +10,11 @@ namespace Final_Project_C
     {
         Enemy enemy;
         int cont = 0;
+        MapLoader map;
 
-        public Combat()
+        public Combat(MapLoader map)
         {
+            this.map = map;
             GetEnemy(Player.enemyPosX, Player.enemyPosY);
             CombatStartUp();
             CombatUpDate();
@@ -44,7 +46,7 @@ namespace Final_Project_C
             Console.WriteLine($"You received {ScoreAdd()} Point");
             Console.WriteLine("\nPrees any key to Continue...");
             Console.ReadKey();
-            MapLoader.MapUpDate();
+            map.MapUpDate();
         }
 
         void PlayerTurn()
@@ -109,8 +111,8 @@ namespace Final_Project_C
                 Console.Clear();
             }
             cont++;
+            Console.Write("Player stats:\nHP: {0}\nStamina: {1}\nShield: {2}\nHP potion: {3}\nStamina potion: {4}\n\n",Player.hp,Player.stamina,Player.shield,Player.inventory.hpPotion.Count,Player.inventory.staminaPotion.Count);
             Console.WriteLine("Choose your ACTION:\n1.Attack\n2.Defense\n3.Life potion\n4.Stamina potion\n");
-            Console.Write("Player stats:\nHP: {0}\nStamina: {1}\nShield: {2}\nHP potion: {3}\nStamina potion: {4}\n\n",Player.hp,Player.stamina,Player.shield,Player.healPotion,Player.staminaPotion);
             Console.Write("Enemy Stats:\n" + "HP: " + enemy.hp + "\n\n");
         }
 

@@ -11,7 +11,6 @@ namespace Final_Project_C
         int X;
         int Y;
         bool isHp;
-        
         public Potion(string Ui, int X, int Y, bool isHp)
         {
             MapLoader.mapGride[X, Y] = Ui;
@@ -20,7 +19,13 @@ namespace Final_Project_C
             this.isHp = isHp;
         }
 
-        public void activation()
+        public   Potion (bool isHp)
+        {
+            
+            activation(isHp);
+        }
+
+        public void activationPickUp()
         {
             if (isHp)
             {
@@ -30,18 +35,31 @@ namespace Final_Project_C
                 activationStamina();
         }
 
-        public void activationHp()
+        void activation(bool isHp)
+        {
+            if (isHp)
+            {
+                Player.inventory.AddHpPotion(this);
+            }
+            else
+                Player.inventory.AddStaminaPotion(this);
+        }
+
+        void activationHp()
         {
             MapLoader.mapGride[X, Y] = Strings.space;
             Player.inventory.AddHpPotion(this);
+            
 
         }
 
-        public void activationStamina()
+        void activationStamina()
         {
             MapLoader.mapGride[X, Y] = Strings.space;
             Player.inventory.AddStaminaPotion(this);
+           
 
         }
+
     }
 }

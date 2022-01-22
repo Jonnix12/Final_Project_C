@@ -61,6 +61,10 @@ namespace Final_Project_C
                 Player.inventory.AddFireBull();
                 isSpawn = true;
             }
+            else if (isAxein && isFireBullIn && isSpawn)
+            {
+                isSpawn = true;
+            }
             else
             {
                 if (!isSpawn)

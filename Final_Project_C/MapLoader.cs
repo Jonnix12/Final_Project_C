@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 
 namespace Final_Project_C
 {
-    static class MapLoader
+     class MapLoader
     {
         public static string[,] mapGride = new string[40, 20];
-       
+         PickUpManager PickUpManager;
 
 
-        public static void MapStartUp(int entryX, int entryY)
+        public  void MapStartUp(int entryY, int NumOfRooms , PickUpManager pickUpManager)
         {
+            PickUpManager = pickUpManager;
+
             for (int Y = 0; Y < 20; Y++)
             {
                 for (int X = 0; X < 40; X++)
@@ -34,17 +36,18 @@ namespace Final_Project_C
 
             mapGride[39, Exit] = Strings.exit;
 
-            RoomSetUp();
-            RoomSetUp();
-            RoomSetUp();
-            RoomSetUp();
+            for (int i = 0; i < NumOfRooms; i++)
+            {
+                RoomSetUp();
+            }
+            
             
             Vector2.X = 1;
             PlayerPosisonUpDate(Vector2.X, entryY);
             MapPrint(mapGride);
         }
 
-        public static void MapUpDate()
+        public  void MapUpDate()
         {
             Console.Clear();
             PlayerPosisonUpDate(Vector2.X, Vector2.Y);
@@ -52,7 +55,7 @@ namespace Final_Project_C
         }
 
 
-        static void RoomSetUp()
+         void RoomSetUp()
         {
             int maxX;
             int minX;
@@ -146,7 +149,7 @@ namespace Final_Project_C
 
         }
 
-        public static void MapPrint(string[,] map)
+        public  void MapPrint(string[,] map)
         {
             for (int Y = 0; Y < 20; Y++)
             {
@@ -156,14 +159,18 @@ namespace Final_Project_C
                 }
                 Console.WriteLine();
             }
-            Console.WriteLine(Player.playerCurrentX + "," + Player.playerCurrentY);
+            Console.WriteLine("Level {0}\n", SceneManager.levelCount);
             Console.WriteLine("HP:{0}", Player.hp);
             Console.WriteLine("Score:{0}", Player.point);
+            Console.WriteLine("shield:{0}", Player.shield);
+            Console.WriteLine("HP Potion:{0}", Player.inventory.hpPotion.Count);
+            Console.WriteLine("Stamina Potion:{0}", Player.inventory.staminaPotion.Count);
+            Console.WriteLine("Logs:");
 
         }
 
 
-        public static void PlayerPosisonUpDate(int x, int y)
+        public  void PlayerPosisonUpDate(int x, int y)
         {
             mapGride[Player.playerCurrentX, Player.playerCurrentY] = Strings.space;
             mapGride[x, y] = Strings.player;

@@ -36,5 +36,10 @@ namespace Final_Project_C
                 enemy.TakeDamage(damage + 5); 
             }
         }
+
+        public string GetWeaponName()
+        {
+            return this.name;
+        }
     }
 }

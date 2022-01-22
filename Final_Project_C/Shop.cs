@@ -24,7 +24,7 @@ namespace Final_Project_C
         public void ShopMainMenu()
         {
             selectIndex = 0;
-            string[] screenOptions = new string[] { "Buy shield", "Buy Weapon", "Buy Hp", "Continue" };
+            string[] screenOptions = new string[] { "Buy shield", "Buy Weapon", "Buy Hp", "Buy Potion", "Continue" };
             Console.Clear();
             MenuPrint(screenOptions);
 
@@ -40,6 +40,9 @@ namespace Final_Project_C
                     HpMenu();
                     break;
                 case 3:
+                    PotionMenu();
+                    break;
+                case 4:
                     break;
                 default:
                     break;
@@ -123,6 +126,54 @@ namespace Final_Project_C
             Console.SetCursorPosition(0, maxIndexForPointer + 2);
             Console.WriteLine(message);
             Console.SetCursorPosition(0, originalCursorPos);
+        }
+
+        void PotionMenu()
+        {
+            selectIndex = 0;
+            bool inMenu = true;
+            Console.Clear();
+            string[] screenOptionsPotion = new string[] { "But 1 HP potion = 10 points", "But 1 stamina potion = 10 points", "Back" };
+            MenuPrint(screenOptionsPotion);
+
+            while (inMenu)
+            {
+                switch (MenuInput(screenOptionsPotion))
+                {
+                    case 0:
+                        if (Player.RemovePoints(10))
+                        {
+                            Potion potion = new Potion(true);
+                            MenuPrint(screenOptionsPotion);
+                            Log("Add 1 Hp potion");
+                        }
+                        else
+                        {
+                            MenuPrint(screenOptionsPotion);
+                            Log("Not enough point");
+                        }
+                        break;
+                    case 1:
+                        if (Player.RemovePoints(10))
+                        {
+                            Potion potion = new Potion(false);
+                            MenuPrint(screenOptionsPotion);
+                            Log("Add 1 Stamina potion");
+                        }
+                        else
+                        {
+                            MenuPrint(screenOptionsPotion);
+                            Log("Not enough point");
+                        }
+                        break;
+                    case 2:
+                        inMenu = false;
+                        ShopMainMenu();
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
         void shieldMenu()
@@ -215,7 +266,11 @@ namespace Final_Project_C
                 {
                     case 0:
                         if (Player.RemovePoints(50))
+                        {
                             Player.inventory.AddAxe();
+                            MenuPrint(screenOptionsWeapon);
+                            Log("Add Axe");
+                        }
                         else
                         {
                             MenuPrint(screenOptionsWeapon);
@@ -224,7 +279,11 @@ namespace Final_Project_C
                         break;
                     case 1:
                         if (Player.RemovePoints(70))
+                        {
                             Player.inventory.AddFireBull();
+                            MenuPrint(screenOptionsWeapon);
+                            Log("Add Fire Bull");
+                        }
                         else
                         {
                             MenuPrint(screenOptionsWeapon);

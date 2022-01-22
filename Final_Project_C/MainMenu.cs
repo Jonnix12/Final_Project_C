@@ -71,7 +71,7 @@ namespace Final_Project_C
                 switch (MenuInput(mainMenu))
                 {
                     case 0:
-                        SceneManager sceneManager = new SceneManager(3, 3);
+                        SceneManager sceneManager = new SceneManager( 3);
                         break;
                     case 1:
                         OptionsMenu();

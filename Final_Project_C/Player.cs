@@ -18,7 +18,6 @@ namespace Final_Project_C
         public static int playerCurrentX = Vector2.X;
         public static int enemyPosX;
         public static int enemyPosY;
-        public static int healPotion, staminaPotion;
 
         public static inventory inventory;
 
@@ -200,7 +199,7 @@ namespace Final_Project_C
 
         public static void Heal() //שיקוי חיים מוסיף חיים
         {
-            if (healPotion > 0)
+            if (inventory.hpPotion.Count > 0)
             {
                 if (hp < maxHp)
                 {
@@ -210,7 +209,7 @@ namespace Final_Project_C
                 {
                     hp = maxHp;
                 }
-                healPotion--;
+                inventory.hpPotion.RemoveAt(0);
             }
 
             else
@@ -221,10 +220,10 @@ namespace Final_Project_C
         }
         public static void StaminaUp() //שיקוי סטמינה מוסיף סטימנה
         {
-            if (staminaPotion > 0)
+            if (inventory.staminaPotion.Count > 0)
             {
                 stamina += 40;
-                staminaPotion--;
+                inventory.staminaPotion.RemoveAt(0);
             }
             else
             {
@@ -401,7 +400,7 @@ namespace Final_Project_C
 
         public static bool RemovePoints(int amontOfPoints)
         {
-            if ((point - amontOfPoints) > 0)
+            if ((point - amontOfPoints) >= 0)
             {
                 point -= amontOfPoints;
                 return true;

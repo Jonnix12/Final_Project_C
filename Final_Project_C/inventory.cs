@@ -30,7 +30,7 @@ namespace Final_Project_C
             if (!isAxeIn)
             {
                 weapons.Add("axe", new Weapon("Axe", 13, 15, 5));
-                Console.WriteLine("Add Axe");
+                
                 isAxeIn = true;
             }
         }
@@ -40,7 +40,7 @@ namespace Final_Project_C
             if (!isFireBullIn)
             {
                 weapons.Add("firebull", new Weapon("Firebull", 10, 3, 4));
-                Console.WriteLine("Add Fire Bull");
+                
                 isFireBullIn = true;
             }
         }

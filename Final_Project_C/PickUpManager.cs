@@ -9,57 +9,87 @@ namespace Final_Project_C
     class PickUpManager
     {
 
-        static int spawnX;
-        static int spawnY;
+        int spawnX;
+        int spawnY;
+
+        List<int> xPos = new List<int>();
+        List<int> yPos = new List<int>();
+
+        public WeaponPickUp weaponPickUp;
+        public HpPickUp hpPickUp;
+        public Chast chastPickUp;
+        public Potion potion;
 
 
-        static List<int> minXL = new List<int>();
-        static List<int> maxXL = new List<int>();
-        static List<int> minYL = new List<int>();
-        static List<int> maxYL = new List<int>();
 
-        public static WeaponPickUp weaponPickUp;
-        public static HpPickUp hpPickUp;
-        public static Chast chastPickUp;
-        public static Potion hpPotion;
-        public static Potion staminaPotion;
-
-        public static void GetSpawnLocation(int minX, int maxX, int minY, int maxY)
+        public void GetSpawnLocation(int minX, int maxX, int minY, int maxY)
         {
-            int conut = 0;
+            List<int> X = new List<int>();
+            List<int> Y = new List<int>();
+            int _spawnX;
+            int _spawnY;
 
-            minXL.Add(minX);
-            maxXL.Add(maxX);
-            minYL.Add(minY);
-            maxYL.Add(maxY);
+            for (int i = minX + 1; i <= maxX - 1; i++)
+            {
+                X.Add(i);
+            }
 
-            conut++;
-        }
+            for (int i = minY + 1; i < maxY - 1; i++)
+            {
+                Y.Add(i);
+            }
 
-        static void SetSpawnLocation()
-        {
-            int index;
+            int index_X;
+            int index_Y;
 
             Random random = new Random();
 
             invalidPoint:
-            index = random.Next(0, minXL.Count);
+            index_X = random.Next(0, X.Count);
+            index_Y = random.Next(0, Y.Count);
 
-            spawnX = random.Next(minXL[index], maxXL[index]);
-            spawnY = random.Next(minYL[index], maxYL[index]);
+            _spawnX = X[index_X];
+            _spawnY = Y[index_Y];
 
-            if (MapLoader.mapGride[spawnX, spawnY] != Strings.rommSpace)
+            if (MapLoader.mapGride[_spawnX, _spawnY] != Strings.rommSpace)
                 goto invalidPoint;
+
+            xPos.Add(_spawnX);
+            yPos.Add(_spawnY);
         }
 
-        public static void SpawnWeapon()
+        void SetSpawnLocation()
         {
-            SetSpawnLocation();
-            weaponPickUp = new WeaponPickUp(Strings.weaponUi, spawnX, spawnY);
+            Random random = new Random();
+            int index = random.Next(0, xPos.Count);
+
+            spawnX = xPos[index];
+            spawnY = yPos[index];
+        }
+
+        public void SpawnWeapon()
+        {
+            bool isSwordIn = false;
+            bool isAxein = false;
+            bool isFireBullIn = false;
+
+            if (Player.inventory.weapons.ContainsKey("sword"))
+                isSwordIn = true;
+            if (Player.inventory.weapons.ContainsKey("axe"))
+                isAxein = true;
+            if (Player.inventory.weapons.ContainsKey("firebull"))
+                isFireBullIn = true;
+
+            if (!isFireBullIn || !isAxein || !isSwordIn)
+            {
+                SetSpawnLocation();
+                weaponPickUp = new WeaponPickUp(Strings.weaponUi, spawnX, spawnY);
+            }
+            
 
         }
 
-        public static void SpawnHp()
+        public void SpawnHp()
         {
             SetSpawnLocation();
             Random random = new Random();
@@ -70,7 +100,7 @@ namespace Final_Project_C
 
         }
 
-        public static void SpawnChast()
+        public void SpawnChast()
         {
             SetSpawnLocation();
             Random random = new Random();
@@ -80,17 +110,24 @@ namespace Final_Project_C
 
         }
 
-        public static void SpawnHpPotion()
+        public void SpawnPotion()
         {
             SetSpawnLocation();
-            hpPotion = new Potion(Strings.potion, spawnX, spawnY, true);
-            Player.inventory.AddHpPotion(hpPotion);
+            Random random = new Random();
+            int temp = random.Next(0, 2);
+            bool tempBool = true;
+
+            if (temp == 0)
+            {
+                tempBool = true;
+            }
+            else if (temp == 1)
+            {
+                tempBool = false;
+            }
+            potion = new Potion(Strings.potion, spawnX, spawnY, tempBool);
+
         }
 
-        public static void SpawnStaminaPotion()
-        {
-            SetSpawnLocation();
-            staminaPotion = new Potion(Strings.potion, spawnX, spawnY, false);
-        }
     }
 }
