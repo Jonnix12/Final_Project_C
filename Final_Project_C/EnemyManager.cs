@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Final_Project_C
 {
 
-    class EnemyManager
+    class EnemyManager 
     {
         int spawnX;
         int spawnY;
@@ -33,6 +33,83 @@ namespace Final_Project_C
 
 
             }
+
+             Task.Run(() => EnemyMove());
+        }
+
+        Task EnemyMove()
+        {
+            Random random = new Random();
+
+            while (!Combat.inCombat &&  !Shop.inShop)
+            {
+                foreach (var enemy in enemies)
+                {
+                    System.Threading.Thread.Sleep(250);
+                    Console.SetCursorPosition(enemy.posX, enemy.posY);
+                    Console.Write(Strings.space);
+                    MapLoader.mapGride[enemy.posX, enemy.posY] = Strings.space;
+
+                    switch (random.Next(0,4))
+                    {
+                        case 0:
+                            enemy.posX++;
+
+                            if (MapLoader.mapGride[enemy.posX,enemy.posY] == Strings.space)
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                enemy.posX--;
+                            }
+                            break;
+                        case 1:
+                            enemy.posX--;
+
+                            if (MapLoader.mapGride[enemy.posX, enemy.posY] == Strings.space)
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                enemy.posX++;
+                            }
+                            break;
+                        case 2:
+                            enemy.posY++;
+
+                            if (MapLoader.mapGride[enemy.posX, enemy.posY] == Strings.space)
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                enemy.posY--;
+                            }
+                            break;
+                        case 3:
+                            enemy.posY--;
+
+                            if (MapLoader.mapGride[enemy.posX, enemy.posY] == Strings.space)
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                enemy.posY++;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+
+                    Console.SetCursorPosition(enemy.posX, enemy.posY);
+                    Console.Write(Strings.enemy);
+                    MapLoader.mapGride[enemy.posX, enemy.posY] = Strings.enemy;
+                }
+            }
+            return null;
         }
 
     }

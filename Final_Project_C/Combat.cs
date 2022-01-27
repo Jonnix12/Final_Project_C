@@ -8,12 +8,14 @@ namespace Final_Project_C
 {
     class Combat
     {
+        public static bool inCombat = false;
         Enemy enemy;
         int cont = 0;
         MapLoader map;
 
         public Combat(MapLoader map)
         {
+            inCombat = true;
             this.map = map;
             GetEnemy(Player.enemyPosX, Player.enemyPosY);
             CombatStartUp();
@@ -46,6 +48,7 @@ namespace Final_Project_C
             Console.WriteLine($"You received {ScoreAdd()} Point");
             Console.WriteLine("\nPrees any key to Continue...");
             Console.ReadKey();
+            inCombat = false;
             map.MapUpDate();
         }
 

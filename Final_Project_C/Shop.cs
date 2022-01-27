@@ -8,7 +8,7 @@ namespace Final_Project_C
 {
     class Shop
     {
-
+        public static bool inShop = false;
         ConsoleKeyInfo KeyInfo;
         int selectIndex = 0;
 
@@ -18,6 +18,7 @@ namespace Final_Project_C
 
         public Shop()
         {
+            inShop = true;
             ShopMainMenu();
         }
 

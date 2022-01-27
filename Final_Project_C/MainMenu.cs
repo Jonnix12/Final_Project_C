@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace Final_Project_C
 {
+   
     class MainMenu
     {
+        public static bool inMenu = false;
+
         ConsoleKeyInfo KeyInfo;
         int selectIndex = 0;
         bool isPuseMenu;
@@ -18,6 +21,7 @@ namespace Final_Project_C
 
         public MainMenu(bool isPuseMenu)
         {
+            inMenu = true;
             if (isPuseMenu)
             {
                 this.isPuseMenu = isPuseMenu;

@@ -10,11 +10,15 @@ namespace Final_Project_C
     {
         ConsoleKey key;
 
-        int NumOfRooms = 4;
+        public static int levelCount = 0;
         static int numOfEnemy = 0;
         static int enemyDifficulty = 1;
+        static int amontOfTraps = 2;
+        int NumOfRooms = 4;
+        int trapCount = 0;
+
         static bool randDifficulty = false;
-        public static int levelCount = 0;
+
         PickUpManager pickUpManager;
         MapLoader Map;
 
@@ -23,7 +27,7 @@ namespace Final_Project_C
             levelCount++;
             Map = new MapLoader();
             pickUpManager = new PickUpManager();
-            Map.MapStartUp(entryY , NumOfRooms,pickUpManager);
+            Map.MapStartUp(entryY, NumOfRooms, pickUpManager);
             EnemyManager enemyManager = new EnemyManager();
             enemyManager.EnemySpawn(numOfEnemy, enemyDifficulty, randDifficulty);
             PickUpSpawn();
@@ -36,6 +40,7 @@ namespace Final_Project_C
             switch (difficulty)
             {
                 case 1:
+                    amontOfTraps = 0;
                     numOfEnemy = 2;
                     enemyDifficulty = 0;
                     if (randDifficulty)
@@ -44,6 +49,7 @@ namespace Final_Project_C
                     }
                     break;
                 case 2:
+                    amontOfTraps = 2;
                     numOfEnemy = 4;
                     enemyDifficulty = 1;
                     if (randDifficulty)
@@ -52,6 +58,7 @@ namespace Final_Project_C
                     }
                     break;
                 case 3:
+                    amontOfTraps = 4;
                     numOfEnemy = 6;
                     enemyDifficulty = 2;
                     if (randDifficulty)
@@ -60,6 +67,7 @@ namespace Final_Project_C
                     }
                     break;
                 case 4:
+                    amontOfTraps = 8;
                     numOfEnemy = 8;
                     enemyDifficulty = 2;
                     randDifficulty = false;
@@ -81,9 +89,11 @@ namespace Final_Project_C
 
             while (true)
             {
+                
                 GetPlayerInput();
                 Player.Move(key);
                 Map.PlayerPosisonUpDate(Vector2.X, Vector2.Y);
+                TrapCollider();
 
                 if (key == ConsoleKey.Escape)
                 {
@@ -100,6 +110,20 @@ namespace Final_Project_C
                 collideChack();
                 cunt++;
 
+            }
+        }
+
+        void TrapCollider()
+        {
+            Random random = new Random();
+
+            if (random.Next(0, 301) < 5 && trapCount < amontOfTraps)
+            {
+                Trap trap = new Trap();
+                Map.MapUpDate();
+                Log("landed on a TRAP!");
+                Player.TakeDamage(random.Next(5, 10));
+                trapCount++;
             }
         }
 
