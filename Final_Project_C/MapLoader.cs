@@ -163,8 +163,8 @@ namespace Final_Project_C
             Console.WriteLine("HP:{0}", Player.hp);
             Console.WriteLine("Score:{0}", Player.point);
             Console.WriteLine("shield:{0}", Player.shield);
-            Console.WriteLine("HP Potion:{0}", Player.inventory.hpPotion.Count);
-            Console.WriteLine("Stamina Potion:{0}", Player.inventory.staminaPotion.Count);
+           // Console.WriteLine("HP Potion:{0}", Player.inventory.hpPotion.Count);
+           // Console.WriteLine("Stamina Potion:{0}", Player.inventory.staminaPotion.Count);
             Console.WriteLine("Logs:");
 
         }
@@ -179,9 +179,9 @@ namespace Final_Project_C
             int top = Console.GetCursorPosition().Top;
 
             Console.SetCursorPosition(Player.playerCurrentX, Player.playerCurrentY);
-            Console.Write(mapGride[Player.playerCurrentX, Player.playerCurrentY]);
+            Console.Write(Strings.space);
             Console.SetCursorPosition(x, y);
-            Console.Write(mapGride[x, y]);
+            Console.Write(Strings.player);
 
             Player.playerCurrentY = y;
             Player.playerCurrentX = x;

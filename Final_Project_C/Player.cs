@@ -11,9 +11,10 @@ namespace Final_Project_C
         public static float shield = 25;
         public static float hp = 100;
         static float maxHp = 100;
+        static int maxStamina = 100;
         public static float stamina;
 
-        public static int point = 50;
+        public static int point = 0;
         public static int playerCurrentY = Vector2.Y;
         public static int playerCurrentX = Vector2.X;
         public static int enemyPosX;
@@ -26,9 +27,13 @@ namespace Final_Project_C
         {
             inventory = new inventory();
             inventory.AddSword();
+            shield = 25;
+            hp = 100;
+            point = 0;
+            stamina = 100000;
         }
 
-        public static void Move(ConsoleKey moveTo)
+        public static void Move(ConsoleKey moveTo)//Movement function for the player
         {
             switch (moveTo)
             {
@@ -94,7 +99,7 @@ namespace Final_Project_C
 
         }
 
-        public static void Attack(Enemy enemy)
+        public static void Attack(Enemy enemy)//Assault function lets the player choose which period he wants to do
         {
             bool isAttack = false;
 
@@ -218,12 +223,17 @@ namespace Final_Project_C
             }
 
         }
+
         public static void StaminaUp() //שיקוי סטמינה מוסיף סטימנה
         {
             if (inventory.staminaPotion.Count > 0)
             {
                 stamina += 40;
                 inventory.staminaPotion.RemoveAt(0);
+                if (stamina > maxStamina)
+                {
+                    stamina = maxStamina;
+                }
             }
             else
             {
@@ -247,7 +257,6 @@ namespace Final_Project_C
             }
             
         }
-
 
         public static bool StrikeChance(int chance)
         {
@@ -388,6 +397,11 @@ namespace Final_Project_C
             maxHp += amontOfHp;
         }
 
+        public static void AddMaxStamina(int amont)
+        {
+            maxStamina += amont;
+        }
+
         public static void AddPoint(int scoreAdd)
         {
             point += scoreAdd;
@@ -411,10 +425,25 @@ namespace Final_Project_C
             }
         }
 
+        public static bool RemoveStamina(int amont)
+        {
+            if (stamina - amont >= 0)
+            {
+                stamina -= amont;
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("Not enough Stamina!");
+                return false;
+            }
+        }
+
         public static bool IsDead()
         {
             if (hp <= 0)
             {
+                EndScreen endScreen = new EndScreen();
                 return true;
             }
             return false;

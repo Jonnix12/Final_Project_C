@@ -22,7 +22,7 @@ namespace Final_Project_C
 
 
 
-        public void GetSpawnLocation(int minX, int maxX, int minY, int maxY)
+        public void GetSpawnLocation(int minX, int maxX, int minY, int maxY)//Finds a spawning point inside one of the rooms
         {
             List<int> X = new List<int>();
             List<int> Y = new List<int>();
@@ -58,7 +58,7 @@ namespace Final_Project_C
             yPos.Add(_spawnY);
         }
 
-        void SetSpawnLocation()
+        void SetSpawnLocation()//Determines the spawning point
         {
             Random random = new Random();
             int index = random.Next(0, xPos.Count);

@@ -10,32 +10,43 @@ namespace Final_Project_C
     {
         ConsoleKey key;
 
+        public static bool inCombat = false;
         public static int levelCount = 0;
-        static int numOfEnemy = 0;
+        static int numOfEnemy = 4;
         static int enemyDifficulty = 1;
         static int amontOfTraps = 2;
         int NumOfRooms = 4;
         int trapCount = 0;
 
+
         static bool randDifficulty = false;
 
         PickUpManager pickUpManager;
         MapLoader Map;
+        EnemyManager enemyManager;
 
-        public SceneManager(int entryY)
+        public SceneManager(int entryY)//Creates a new scene
         {
             levelCount++;
             Map = new MapLoader();
             pickUpManager = new PickUpManager();
             Map.MapStartUp(entryY, NumOfRooms, pickUpManager);
-            EnemyManager enemyManager = new EnemyManager();
-            enemyManager.EnemySpawn(numOfEnemy, enemyDifficulty, randDifficulty);
+            enemyManager = new EnemyManager(Map);
+
+            if (randDifficulty)
+            {
+                enemyManager.EnemySpawn(numOfEnemy, randDifficulty);
+            }
+            else
+            {
+                enemyManager.EnemySpawn(numOfEnemy, enemyDifficulty);
+            }
             PickUpSpawn();
             Map.MapUpDate();
             GameUpDate();
         }
 
-        public static void SetDiifficulty(int difficulty, bool setRandDifficulty)
+        public static void SetDiifficulty(int difficulty)//Function for changing the difficulty level of enemies
         {
             switch (difficulty)
             {
@@ -43,77 +54,81 @@ namespace Final_Project_C
                     amontOfTraps = 0;
                     numOfEnemy = 2;
                     enemyDifficulty = 0;
-                    if (randDifficulty)
-                    {
-                        randDifficulty = setRandDifficulty;
-                    }
+
                     break;
                 case 2:
                     amontOfTraps = 2;
                     numOfEnemy = 4;
                     enemyDifficulty = 1;
-                    if (randDifficulty)
-                    {
-                        randDifficulty = setRandDifficulty;
-                    }
+
                     break;
                 case 3:
                     amontOfTraps = 4;
                     numOfEnemy = 6;
                     enemyDifficulty = 2;
-                    if (randDifficulty)
-                    {
-                        randDifficulty = setRandDifficulty;
-                    }
+
                     break;
                 case 4:
                     amontOfTraps = 8;
                     numOfEnemy = 8;
                     enemyDifficulty = 2;
-                    randDifficulty = false;
                     break;
                 default:
                     break;
             }
         }
 
-        void GetPlayerInput()
+        public static void SetDiifficulty(bool setRandDifficulty)
         {
-            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-            key = keyInfo.Key;
+            randDifficulty = setRandDifficulty;
+            Random random = new Random();
+            numOfEnemy = random.Next(3, 9);
         }
 
-        void GameUpDate()
+        void GetPlayerInput()//Receives input from the user
+        {
+
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+            key = keyInfo.Key;
+            keyInfo = default(ConsoleKeyInfo);
+        }
+
+        void GameUpDate()//Loop of the game
         {
             int cunt = 0;
 
             while (true)
             {
-                
+                System.Threading.Thread.Sleep(150);
                 GetPlayerInput();
-                Player.Move(key);
-                Map.PlayerPosisonUpDate(Vector2.X, Vector2.Y);
-                TrapCollider();
+
+                if (key == ConsoleKey.W || key == ConsoleKey.S || key == ConsoleKey.A || key == ConsoleKey.D)
+                {
+                    Player.Move(key);
+                    Map.PlayerPosisonUpDate(Vector2.X, Vector2.Y);
+                    TrapCollider();
+
+
+                    if (cunt > 50)
+                    {
+                        Map.MapUpDate();
+                        cunt = 0;
+                    }
+
+                    collideChack();
+                    cunt++;
+
+                }
 
                 if (key == ConsoleKey.Escape)
                 {
                     MainMenu puseMenu = new MainMenu(true);
                     Map.MapUpDate();
                 }
-
-                if (cunt > 50)
-                {
-                    Map.MapUpDate();
-                    cunt = 0;
-                }
-
-                collideChack();
-                cunt++;
-
             }
         }
 
-        void TrapCollider()
+        void TrapCollider()//Checks if you landed on a trap
         {
             Random random = new Random();
 
@@ -127,13 +142,25 @@ namespace Final_Project_C
             }
         }
 
-        void collideChack()
+        void collideChack()//Checks if approached with an object
         {
             string temp = Player.Collider();
 
             if (temp == Strings.enemy)
             {
+                bool toContinue = true;
+                inCombat = true;
+                while (toContinue)
+                {
+                    if (!EnemyManager.enemyMove)
+                    {
+                        toContinue = false;
+                    }
+                }
+                Player.Collider();
                 Combat combat = new Combat(Map);
+                inCombat = false;
+                Task.Run(() => enemyManager.EnemyMove());
                 Map.MapUpDate();
             }
 
@@ -173,7 +200,7 @@ namespace Final_Project_C
 
         }
 
-        void PickUpSpawn()
+        void PickUpSpawn()//At the beginning of a stage spawns objects on the map
         {
             Random random = new Random();
 
@@ -199,17 +226,17 @@ namespace Final_Project_C
 
         }
 
-        void MoveToNextScene(int entryY)
+        void MoveToNextScene(int entryY)//Moves level
         {
             Console.Clear();
             SceneManager newScene = new SceneManager(entryY);
         }
 
-        void Log(string Log)
+        void Log(string Log)//Log message
         {
             Console.WriteLine(Log);
         }
-
+        
 
     }
 }

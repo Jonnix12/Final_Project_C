@@ -7,15 +7,19 @@ using System.Threading.Tasks;
 namespace Final_Project_C
 {
 
-    class EnemyManager 
+    class EnemyManager
     {
         int spawnX;
         int spawnY;
-
-
+        public static bool enemyMove;
+        MapLoader map;
         public static List<Enemy> enemies = new List<Enemy>();
 
-        public void EnemySpawn(int numOfEnemy , int difficulty , bool randDifficulty)
+        public EnemyManager(MapLoader map)
+        {
+            this.map = map;
+        }
+        public void EnemySpawn(int numOfEnemy, int difficulty)
         {
             Random random = new Random();
 
@@ -29,88 +33,127 @@ namespace Final_Project_C
                 if (MapLoader.mapGride[spawnX, spawnY] != Strings.space)
                     goto invalidPoint;
 
-                enemies.Add(new Enemy(Strings.enemy, spawnX, spawnY, difficulty, randDifficulty));
+                enemies.Add(new Enemy(Strings.enemy, spawnX, spawnY, difficulty));
 
 
             }
 
-             Task.Run(() => EnemyMove());
-        }
+            Task.Run(() => EnemyMove());
+            enemyMove = true;
 
-        Task EnemyMove()
+        }
+        public void EnemySpawn(int numOfEnemy, bool randDifficulty)
         {
             Random random = new Random();
 
-            while (!Combat.inCombat &&  !Shop.inShop)
+            for (int i = 0; i < numOfEnemy; i++)
             {
-                foreach (var enemy in enemies)
+                invalidPoint:
+
+                spawnX = random.Next(1, 39);
+                spawnY = random.Next(1, 19);
+
+                if (MapLoader.mapGride[spawnX, spawnY] != Strings.space)
+                    goto invalidPoint;
+
+                enemies.Add(new Enemy(Strings.enemy, spawnX, spawnY, randDifficulty));
+
+
+            }
+
+            Task.Run(() => EnemyMove());
+            enemyMove = true;
+
+        }
+
+        public Task EnemyMove()
+        {
+            Random random = new Random();
+            enemyMove = true;
+
+            while (enemyMove)
+            {
+
+                if (!SceneManager.inCombat && !Shop.inShop)
                 {
-                    System.Threading.Thread.Sleep(250);
-                    Console.SetCursorPosition(enemy.posX, enemy.posY);
-                    Console.Write(Strings.space);
-                    MapLoader.mapGride[enemy.posX, enemy.posY] = Strings.space;
 
-                    switch (random.Next(0,4))
+                    
+                    foreach (var enemy in enemies)
                     {
-                        case 0:
-                            enemy.posX++;
+                        System.Threading.Thread.Sleep(500);
+                        Console.SetCursorPosition(enemy.posX, enemy.posY);
+                        Console.Write(Strings.space);
+                        MapLoader.mapGride[enemy.posX, enemy.posY] = Strings.space;
 
-                            if (MapLoader.mapGride[enemy.posX,enemy.posY] == Strings.space)
-                            {
-                                break;
-                            }
-                            else
-                            {
-                                enemy.posX--;
-                            }
-                            break;
-                        case 1:
-                            enemy.posX--;
-
-                            if (MapLoader.mapGride[enemy.posX, enemy.posY] == Strings.space)
-                            {
-                                break;
-                            }
-                            else
-                            {
+                        switch (random.Next(0, 4))
+                        {
+                            case 0:
                                 enemy.posX++;
-                            }
-                            break;
-                        case 2:
-                            enemy.posY++;
 
-                            if (MapLoader.mapGride[enemy.posX, enemy.posY] == Strings.space)
-                            {
+                                if (MapLoader.mapGride[enemy.posX, enemy.posY] == Strings.space)
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    enemy.posX--;
+                                }
                                 break;
-                            }
-                            else
-                            {
-                                enemy.posY--;
-                            }
-                            break;
-                        case 3:
-                            enemy.posY--;
+                            case 1:
+                                enemy.posX--;
 
-                            if (MapLoader.mapGride[enemy.posX, enemy.posY] == Strings.space)
-                            {
+                                if (MapLoader.mapGride[enemy.posX, enemy.posY] == Strings.space)
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    enemy.posX++;
+                                }
                                 break;
-                            }
-                            else
-                            {
+                            case 2:
                                 enemy.posY++;
-                            }
-                            break;
-                        default:
-                            break;
-                    }
 
-                    Console.SetCursorPosition(enemy.posX, enemy.posY);
-                    Console.Write(Strings.enemy);
-                    MapLoader.mapGride[enemy.posX, enemy.posY] = Strings.enemy;
+                                if (MapLoader.mapGride[enemy.posX, enemy.posY] == Strings.space)
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    enemy.posY--;
+                                }
+                                break;
+                            case 3:
+                                enemy.posY--;
+
+                                if (MapLoader.mapGride[enemy.posX, enemy.posY] == Strings.space)
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    enemy.posY++;
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+
+                        Console.SetCursorPosition(enemy.posX, enemy.posY);
+                        Console.Write(Strings.enemy);
+                        MapLoader.mapGride[enemy.posX, enemy.posY] = Strings.enemy;
+
+                    }
                 }
+                else
+                    enemyMove = false;
             }
             return null;
         }
+
+
+
+
 
     }
 }

@@ -202,7 +202,7 @@ namespace Final_Project_C
         {
             
             bool inMenu = true;
-            string[] difficultyMenu = new string[] { "Easy", "Medium", "Hard", "Do not come crying to me", "Back" };
+            string[] difficultyMenu = new string[] { "Easy", "Medium", "Hard", "Do not come crying to me","Random", "Back" };
             MenuPrint(difficultyMenu);
 
             while (inMenu)
@@ -210,30 +210,35 @@ namespace Final_Project_C
                 switch (MenuInput(difficultyMenu))
                 {
                     case 0:
-                        SceneManager.SetDiifficulty(1, false);
+                        SceneManager.SetDiifficulty(1);
                         MenuPrint(difficultyMenu);
                         Log("Diffiulty set to : Easy");
                         //Console.WriteLine("Change We were updated on the loading of the next scene");
                         break;
                     case 1:
-                        SceneManager.SetDiifficulty(2, false);
+                        SceneManager.SetDiifficulty(2);
                         MenuPrint(difficultyMenu);
                         Log("Diffiulty set to : Medium");
                         //Console.WriteLine("Change We were updated on the loading of the next scene");
                         break;
                     case 2:
-                        SceneManager.SetDiifficulty(3, false);
+                        SceneManager.SetDiifficulty(3);
                         MenuPrint(difficultyMenu);
                         Log("Diffiulty set to : Hard");
                         //Log("Change We were updated on the loading of the next scene");
                         break;
                     case 3:
-                        SceneManager.SetDiifficulty(4, false);
+                        SceneManager.SetDiifficulty(4);
                         MenuPrint(difficultyMenu);
                         Log("Diffiulty set to : Do not come crying to me");
                         //Console.WriteLine("Change We were updated on the loading of the next scene");
                         break;
                     case 4:
+                        SceneManager.SetDiifficulty(true);
+                        MenuPrint(difficultyMenu);
+                        Log("Diffiulty set to : Random");
+                        break;
+                    case 5:
                         inMenu = false;
                         OptionsMenu();
                         break;

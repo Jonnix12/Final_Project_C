@@ -18,6 +18,8 @@ namespace Final_Project_C
 
         int attackDamage;
         float precision;
+        int stamina;
+        int hpUp;
 
 
 
@@ -40,12 +42,18 @@ namespace Final_Project_C
             switch (difficulty)
             {
                 case 0:
+                    hpUp = 0;
+                    stamina = 25;
                     precision = 50;
                     break;
                 case 1:
+                    hpUp = 1;
                     precision = 65;
+                    stamina = 45;
                     break;
                 case 2:
+                    hpUp = 2;
+                    stamina = 65;
                     precision = 75;
                     break;
                 default:
@@ -53,7 +61,8 @@ namespace Final_Project_C
             }
         }
 
-        public Enemy(string enemyUi, int X, int Y, int difficulty, bool randDifficulty)
+
+        public Enemy(string enemyUi, int X, int Y, bool randDifficulty)
         {
 
             MapLoader.mapGride[X, Y] = enemyUi;
@@ -62,22 +71,24 @@ namespace Final_Project_C
             posX = X;
             posY = Y;
             RnadName();
+            Random random = new Random();
 
-            if (randDifficulty)
-            {
-                Random random = new Random();
-                difficulty = random.Next(0, 3);
-            }
 
-            switch (difficulty)
+            switch (random.Next(0, 3))
             {
                 case 0:
+                    hpUp = 0;
+                    stamina = 25;
                     precision = 50;
                     break;
                 case 1:
+                    hpUp = 1;
                     precision = 65;
+                    stamina = 45;
                     break;
                 case 2:
+                    hpUp = 2;
+                    stamina = 65;
                     precision = 75;
                     break;
                 default:
@@ -87,7 +98,37 @@ namespace Final_Project_C
 
         void Attack()
         {
+            Console.WriteLine("Enemy Attacked");
             Player.HitChance(attackDamage, precision);
+        }
+
+        bool RemoveStamina(int amont)
+        {
+            if ((stamina -= amont) >= 0)
+            {
+                stamina -= amont;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        void HpUp(int amont)
+        {
+            if (hpUp > 0)
+            {
+                hp += amont;
+                hpUp--;
+                Console.WriteLine("Enemy Heal Up");
+            }
+        }
+
+        void staminaUp(int amont)
+        {
+            stamina += amont;
+            Console.WriteLine("\nEnemy Rested");
         }
 
         public void TakeDamage(int damage)
@@ -100,7 +141,7 @@ namespace Final_Project_C
             if (hp <= 0)
             {
                 EnemyManager.enemies.Remove(this);
-                MapLoader.mapGride[Player.enemyPosX, Player.enemyPosY] = Strings.space;
+                MapLoader.mapGride[this.posX, this.posY] = Strings.space;
                 return true;
             }
             return false;
@@ -108,51 +149,18 @@ namespace Final_Project_C
 
         public void EnemyAI()
         {
-            Random random = new Random();
-
-
-            bool isAttack = false;
-
-            if (hp > 20)
-            {
-                isAttack = true;
-            }
-            else if (hp > 10)
-            {
-                isAttack = true;
-            }
-            else if (hp < 11)
-            {
-                isAttack = true;
-            }
-
-
-            if (isAttack)//Attack
+            if (((hp > 10 || hpUp == 0) || Player.hp < 30) && RemoveStamina(5))
             {
                 Attack();
             }
-            else if (!isAttack && hp < 10)//life potion
+            else if (hp < 10 && hpUp > 0)
             {
-                hp += 10;
+                HpUp(5);
             }
-        }
-
-        bool HitChance(int chance)
-        {
-            Random random = new Random();
-            int hit = random.Next(1, 11);
-
-            if (hit < chance)
+            else if (stamina < 5)
             {
-                Console.WriteLine("Enemy Hit!");
-                return true;
+                staminaUp(10);
             }
-            else
-            {
-                Console.WriteLine("Enemy Miss");
-            }
-            return false;
-
         }
 
         void RnadName()

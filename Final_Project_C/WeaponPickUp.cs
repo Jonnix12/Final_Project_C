@@ -18,13 +18,13 @@ namespace Final_Project_C
             this.Y = Y;
         }
 
-        public void activation()
+        public void activation() //Creates a weapon and activates a spawning action
         {
             MapLoader.mapGride[X, Y] = Strings.space;
             WeaponSpawn();
         }
 
-        void WeaponSpawn()
+        void WeaponSpawn()//Checks what weapons the player has and then spawns random weapons
         {
             bool isSwordIn = false;
             bool isAxein = false;

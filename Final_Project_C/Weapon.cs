@@ -23,18 +23,26 @@ namespace Final_Project_C
 
         public void ShortAttack(Enemy enemy)
         {
-            if (Player.StrikeChance(hitChance))
+            if (Player.RemoveStamina(weight))
             {
-                enemy.TakeDamage(damage);
+                if (Player.StrikeChance(hitChance))
+                {
+                    enemy.TakeDamage(damage);
+                }
             }
+
         }
 
         public void LongAttack(Enemy enemy)
         {
-            if (Player.StrikeChance(hitChance - 2))
+            if (Player.RemoveStamina(weight + 4))
             {
-                enemy.TakeDamage(damage + 5); 
+                if (Player.StrikeChance(hitChance - 2))
+                {
+                    enemy.TakeDamage(damage + 5);
+                }
             }
+
         }
 
         public string GetWeaponName()

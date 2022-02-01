@@ -8,18 +8,20 @@ namespace Final_Project_C
 {
     class Combat
     {
-        public static bool inCombat = false;
+
         Enemy enemy;
         int cont = 0;
         MapLoader map;
-
         public Combat(MapLoader map)
         {
-            inCombat = true;
-            this.map = map;
-            GetEnemy(Player.enemyPosX, Player.enemyPosY);
-            CombatStartUp();
-            CombatUpDate();
+
+            if (GetEnemy(Player.enemyPosX, Player.enemyPosY))
+            {
+                this.map = map;
+                CombatStartUp();
+                CombatUpDate();
+            }
+            
         }
         void CombatStartUp()
         {
@@ -36,10 +38,10 @@ namespace Final_Project_C
             while (!Player.IsDead() && !enemy.IsDead())
             {
                 PlayerTurn();
-                Console.WriteLine("Enemy turn...");
+                Console.WriteLine("\nEnemy turn...");
                 EnemyTurn();
                 Console.WriteLine("Prees any key to Continue...");
-                Console.ReadKey();
+                Console.ReadKey(true);
                 CombatScreenPrint();
             }
 
@@ -48,7 +50,6 @@ namespace Final_Project_C
             Console.WriteLine($"You received {ScoreAdd()} Point");
             Console.WriteLine("\nPrees any key to Continue...");
             Console.ReadKey();
-            inCombat = false;
             map.MapUpDate();
         }
 
@@ -79,7 +80,7 @@ namespace Final_Project_C
                         Player.StaminaUp();
                         isAction = true;
                         break;
-                    case ConsoleKey.Escape:;
+                    case ConsoleKey.Escape:
                         MainMenu menu = new MainMenu(true);
                         Console.Clear();
                         CombatScreenPrint();
@@ -96,15 +97,18 @@ namespace Final_Project_C
             enemy.EnemyAI();
         }
 
-        void GetEnemy(int X, int Y)
+        bool GetEnemy(int X, int Y)
         {
             for (int i = 0; i < EnemyManager.enemies.Count; i++)
             {
                 if (EnemyManager.enemies[i].posX == X && EnemyManager.enemies[i].posY == Y)
                 {
                     enemy = EnemyManager.enemies[i];
+                    return true;
                 }
+
             }
+            return false;
         }
 
         void CombatScreenPrint()
@@ -114,7 +118,7 @@ namespace Final_Project_C
                 Console.Clear();
             }
             cont++;
-            Console.Write("Player stats:\nHP: {0}\nStamina: {1}\nShield: {2}\nHP potion: {3}\nStamina potion: {4}\n\n",Player.hp,Player.stamina,Player.shield,Player.inventory.hpPotion.Count,Player.inventory.staminaPotion.Count);
+            Console.Write("Player stats:\nHP: {0}\nStamina: {1}\nShield: {2}\nHP potion: {3}\nStamina potion: {4}\n\n", Player.hp, Player.stamina, Player.shield, Player.inventory.hpPotion.Count, Player.inventory.staminaPotion.Count);
             Console.WriteLine("Choose your ACTION:\n1.Attack\n2.Defense\n3.Life potion\n4.Stamina potion\n");
             Console.Write("Enemy Stats:\n" + "HP: " + enemy.hp + "\n\n");
         }

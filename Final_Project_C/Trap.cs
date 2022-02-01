@@ -22,7 +22,7 @@ namespace Final_Project_C
             Start();
         }
 
-        void Start()
+        void Start()//Writes the trap effect on the screen
         {
             int startX = playerPosX - 1;
             int startY = playerPosY - 1;
@@ -72,7 +72,7 @@ namespace Final_Project_C
                 count++;
             }
             Console.SetCursorPosition(originCursorPosX, originCursorPosY);
-            for (int i = startX; i < startX + xRange; i++)
+            for (int i = startX; i < startX + xRange; i++)//Clears the screen from the effect
             {
                 for (int j = startY; j < startY + yRange; j++)
                 {
